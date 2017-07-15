@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Google Phone Gallery</title>
+    <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /> -->
+  </head>
+  <body ng-app="mainModule">
+    <div class="view-container">
+      <div ng-view class="view-frame"></div>
+    </div>
+
+    <script src="lib/angular-1.6.4/angular.min.js"></script>
+    <script src="lib/angular-1.6.4/angular-route.min.js"></script>
+
+    <script src="app.js"></script>
+
+    <script src="modules/regions/regions.controller.js"></script>
+    <script src="modules/resources/resources.controller.js"></script>
+  </body>
+</html>
