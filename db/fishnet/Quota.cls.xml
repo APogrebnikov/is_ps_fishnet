@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="fishnet.Quota">
+<Super>%Persistent</Super>
+<TimeCreated>64481,59419.500162</TimeCreated>
+
+<Property name="name">
+<Type>%String</Type>
+</Property>
+
+<Property name="region">
+<Type>fishnet.Region</Type>
+</Property>
+
+<Property name="company">
+<Type>fishnet.Company</Type>
+</Property>
+
+<Property name="resource">
+<Type>fishnet.Resource</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^fishnet.QuotaD</DataLocation>
+<DefaultData>QuotaDefaultData</DefaultData>
+<IdLocation>^fishnet.QuotaD</IdLocation>
+<IndexLocation>^fishnet.QuotaI</IndexLocation>
+<StreamLocation>^fishnet.QuotaS</StreamLocation>
+<Data name="QuotaDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>name</Value>
+</Value>
+<Value name="3">
+<Value>region</Value>
+</Value>
+<Value name="4">
+<Value>company</Value>
+</Value>
+<Value name="5">
+<Value>resource</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

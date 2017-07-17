@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="fishnet.WorkObject">
+<Super>%Persistent</Super>
+<TimeCreated>64481,59435.257451</TimeCreated>
+
+<Property name="name">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^fishnet.WorkObjectD</DataLocation>
+<DefaultData>WorkObjectDefaultData</DefaultData>
+<IdLocation>^fishnet.WorkObjectD</IdLocation>
+<IndexLocation>^fishnet.WorkObjectI</IndexLocation>
+<StreamLocation>^fishnet.WorkObjectS</StreamLocation>
+<Data name="WorkObjectDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
