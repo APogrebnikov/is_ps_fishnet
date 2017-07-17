@@ -45,10 +45,7 @@
 </Storage>
 </Class>
 
-
 <Package name="fishnet" sqlname="fishnet"/>
-
-
 <Class name="fishnet.Region">
 <StorageStrategy/>
 <Super>%Persistent</Super>
