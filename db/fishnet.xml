@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-07-17 12:50:13">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-07-17 16:05:10">
 <Class name="fishnet.Coordinate">
 <StorageStrategy/>
 <Super>%SerialObject,%Populate</Super>
@@ -46,12 +46,13 @@
 </Class>
 
 
+<Package name="fishnet" sqlname="fishnet"/>
 
 
 <Class name="fishnet.Region">
 <StorageStrategy/>
 <Super>%Persistent</Super>
-<TimeChanged>64481,46200.58322</TimeChanged>
+<TimeChanged>64481,57900.471035</TimeChanged>
 <TimeCreated>64479,59414.858678</TimeCreated>
 
 <Property name="name">
@@ -97,6 +98,30 @@
 	do ..coordinates.Insert(coord)
 	do ..%Save()
 	q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="SaveNewRegion">
+<Implementation><![CDATA[
+	set st = $$$OK
+		
+	try{	
+	
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+      	
+      	// Open region by ID
+      	set region = ##class(fishnet.Region).%OpenId(data.id,,.st)
+      	
+      	// If can't open-create new
+      	if $$$ISERR(st) set region = ##class(fishnet.Region).%New()
+      	
+      	set region.name = $ZCONVERT(data.name, "I", "UTF8")
+      	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")     		
+		$$$THROWONERROR(st, region.%Save())
+	}
+	catch ex{
+		s st=st.AsStatus()
+	}
 ]]></Implementation>
 </Method>
 
