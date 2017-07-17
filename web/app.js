@@ -4,15 +4,15 @@ var directivesModule = angular.module('directivesModule', []);
 var mainModule = angular.module('mainModule', ['servicesModule', 'controllersModule', 'directivesModule', 'ngRoute']);
 
 mainModule.config(function ($routeProvider) {
-  $routeProvider.when('/regions', {
-    templateUrl: 'modules/regions/regions.html',
-    controller: 'regionsController'
+  $routeProvider.when('/region', {
+    templateUrl: 'modules/regions/region.html',
+    controller: 'regionController'
   });
-  $routeProvider.when('/resources', {
-    templateUrl: 'modules/resources/resources.html',
-    controller: 'resourcesController'
+  $routeProvider.when('/resource', {
+    templateUrl: 'modules/resources/resource.html',
+    controller: 'resourceController'
   });
   $routeProvider.otherwise({
-    redirectTo: '/regions'
+    redirectTo: '/region'
   });
 });
