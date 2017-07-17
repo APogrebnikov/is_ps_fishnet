@@ -1,13 +1,13 @@
-controllersModule.controller('regionsController', function ($scope, uiGmapGoogleMapApi) {
-   
-	
-	$scope.map;
+controllersModule.controller('regionsController', function ($scope, NgMap) {
+   	var vm = this;
 	$scope.currentPolygon = "";
+	$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"	
+
 			
-	uiGmapGoogleMapApi.then(function(maps) {
-		maps = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-		$scope.map = maps;
-	});	
+	NgMap.getMap().then(function(map) {
+            vm.map = map;
+  	});
+
 			
 		var isPolygonChosen = function()
 		{
@@ -52,15 +52,6 @@ controllersModule.controller('regionsController', function ($scope, uiGmapGoogle
 		
 		
 		
-		$scope.initMap = function() 
-		{
-			var mapProp = {
-				center:new google.maps.LatLng(24.886, -70.268),
-				zoom:1,
-			};
-			map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-		}
-		
 		$scope.editPolygon = function()
 		{
 			if(isPolygonChosen()) currentPolygon.setOptions({ editable:true });
@@ -69,10 +60,10 @@ controllersModule.controller('regionsController', function ($scope, uiGmapGoogle
 		
 		$scope.createPolygon = function()
 		{
-			var mapCenterCoords = map.getCenter();
+			var mapCenterCoords = vm.map.getCenter();
 			var lat = mapCenterCoords.lat();
 			var lng = mapCenterCoords.lng();
-			var mapZoom = map.getZoom();
+			var mapZoom = vm.map.getZoom();
 			var scaling = 5/mapZoom; 
 			
 			var triangleCoords = [
@@ -96,7 +87,7 @@ controllersModule.controller('regionsController', function ($scope, uiGmapGoogle
 				currentPolygon = triangle;
 			});  
 			
-			triangle.setMap(map);
+			triangle.setMap(vm.map);
 		}
 	
 })
