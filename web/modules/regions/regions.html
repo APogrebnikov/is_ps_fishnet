@@ -1,1 +1,23 @@
-<p ng-bind="hello"></p>
+﻿	<div class = "container" ng-controller="regionsController">
+		<div class = "row">
+		
+			
+			<div id="map_canvas" class = "col-sm-6">
+				<ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+			</div>
+			
+			<div class = "col-sm-6">
+				<div class="form-group">
+					<label for="usr">Id:</label>
+					<input type="text" class="form-control" id="usr"></input>
+				</div>
+				<button type="button" class="btn btn-default">Открыть</button>
+				<button type="button" class="btn btn-primary" ng-click="savePolygon()">Сохранить</button>
+				<button type="button" class="btn btn-success" ng-click="deletePolygon()">Удалить</button>
+				<button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
+				<button type="button" class="btn btn-warning" ng-click="createPolygon()">Создать</button>
+			</div>
+			
+		</div>
+	</div>
+	
