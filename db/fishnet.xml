@@ -1,13 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-07-17 17:20:34">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-07-17 18:12:49">
 <Class name="fishnet.Company">
 <Super>%Persistent</Super>
-<TimeChanged>64481,59283.016731</TimeChanged>
+<TimeChanged>64481,65482.713118</TimeChanged>
 <TimeCreated>64481,59280.79863</TimeCreated>
 
 <Property name="name">
 <Type>%String</Type>
 </Property>
+
+<Property name="phone">
+<Type>%String</Type>
+</Property>
+
+<Method name="GetCompanyById">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<Implementation><![CDATA[
+	set company = ##class(fishnet.Region).%OpenId(id,,.sc)
+	quit:$$$ISERR(sc) sc
+	set proxy = {}
+	set proxy.name = company.name
+	set proxy.phone = company.phone
+	quit proxy.%ToJSON()
+]]></Implementation>
+</Method>
+
+<Method name="SaveNewCompany">
+<Implementation><![CDATA[
+	set st = $$$OK
+		
+	try{	
+	
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+      	
+      	// Open region by ID
+      	set company = ##class(fishnet.Company).%OpenId(data.id,,.st)
+      	
+      	// If can't open-create new
+      	if $$$ISERR(st) set company = ##class(fishnet.Company).%New()
+      	
+      	set company.name = $ZCONVERT(data.name, "I", "UTF8")
+      	set company.phone = $ZCONVERT(data.phone, "I", "UTF8")     		
+		$$$THROWONERROR(st, region.%Save())
+	}
+	catch ex{
+		s st=st.AsStatus()
+	}
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -17,13 +58,14 @@
 <IndexLocation>^fishnet.CompanyI</IndexLocation>
 <StreamLocation>^fishnet.CompanyS</StreamLocation>
 <Data name="CompanyDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
 <Value>name</Value>
+</Value>
+<Value name="3">
+<Value>phone</Value>
 </Value>
 </Data>
 </Storage>
@@ -76,16 +118,106 @@
 </Class>
 
 
+<Class name="fishnet.Json">
+<TimeChanged>64481,51348.680976</TimeChanged>
+<TimeCreated>64481,38898.304932</TimeCreated>
+
+<Method name="GetRegionById">
+<Description>
+Получить регион по идентификатору</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set region = ##class(fishnet.Region).%OpenId(id,,.st)
+  quit:$$$ISERR(st) st 
+  set proxy = region.ConvertToProxyObject()
+  quit proxy.%ToJSON()
+]]></Implementation>
+</Method>
+
+<Method name="GetRegions">
+<Description>
+Получить все регионы</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set st = $$$OK
+  
+  try
+  {
+    set sql = "SELECT "_
+          "FROM " 
+     
+    // Вывод данных в формате JSON для произвольного sql запроса  
+    do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,sql)
+  }
+  catch (ex){
+    set st = ex.AsStatus()
+  } 
+  quit st
+]]></Implementation>
+</Method>
+
+<Method name="SaveRegion">
+<Description>
+Создать/сохранить регион</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  set st = $$$OK
+  try
+  {
+    // Преобразовали входную строку JSON в объект proxyObject
+    $$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data, 1))
+        // Открываем регион по идентификатору
+        set region = ##class(fishnet.Region).%OpenId(data.id,,.st)
+        // Открыть не удалось - создаем
+        if $$$ISERR(st) set student = ##class(fishnet.Region).%New()   
+        set region.Name = $ZCONVERT(data.GetName, "I", "UTF8")
+        $$$THROWONERROR(st, region.%Save())
+  }
+  catch (ex)
+  {
+    set st = ex.AsStatus()
+  }
+
+  quit st
+]]></Implementation>
+</Method>
+
+<Method name="DeleteRegion">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[  quit ##class(classs).%DeleteId(id)
+]]></Implementation>
+</Method>
+</Class>
+
+
 <Package name="fishnet" sqlname="fishnet"/>
 
 
 <Class name="fishnet.Quota">
 <Super>%Persistent</Super>
-<TimeChanged>64481,59485.596183</TimeChanged>
+<TimeChanged>64481,63332.526162</TimeChanged>
 <TimeCreated>64481,59419.500162</TimeCreated>
 
 <Property name="name">
 <Type>%String</Type>
+</Property>
+
+<Property name="region">
+<Type>fishnet.Region</Type>
+</Property>
+
+<Property name="company">
+<Type>fishnet.Company</Type>
+</Property>
+
+<Property name="resource">
+<Type>fishnet.Resource</Type>
 </Property>
 
 <Storage name="Default">
@@ -102,6 +234,15 @@
 <Value name="2">
 <Value>name</Value>
 </Value>
+<Value name="3">
+<Value>region</Value>
+</Value>
+<Value name="4">
+<Value>company</Value>
+</Value>
+<Value name="5">
+<Value>resource</Value>
+</Value>
 </Data>
 </Storage>
 </Class>
@@ -110,7 +251,7 @@
 <Class name="fishnet.Region">
 <StorageStrategy/>
 <Super>%Persistent</Super>
-<TimeChanged>64481,60635.301573</TimeChanged>
+<TimeChanged>64481,65459.969877</TimeChanged>
 <TimeCreated>64479,59414.858678</TimeCreated>
 
 <Property name="name">
@@ -121,6 +262,17 @@
 <Type>fishnet.Coordinate</Type>
 <Collection>list</Collection>
 </Property>
+
+<Property name="resource">
+<Type>fishnet.Resource</Type>
+</Property>
+
+<Method name="GetResourceForRegion">
+<Implementation><![CDATA[
+	set region = $this
+	set proxy = {}
+]]></Implementation>
+</Method>
 
 <Method name="GetRegion">
 <ClassMethod>1</ClassMethod>
@@ -222,6 +374,9 @@
 <Value name="3">
 <Value>coordinates</Value>
 </Value>
+<Value name="4">
+<Value>resource</Value>
+</Value>
 </Data>
 </Storage>
 </Class>
@@ -229,7 +384,7 @@
 
 <Class name="fishnet.Resource">
 <Super>%Persistent</Super>
-<TimeChanged>64481,59381.566907</TimeChanged>
+<TimeChanged>64481,63173.662037</TimeChanged>
 <TimeCreated>64481,59379.543987</TimeCreated>
 
 <Property name="name">
@@ -248,8 +403,6 @@
 <IndexLocation>^fishnet.ResourceI</IndexLocation>
 <StreamLocation>^fishnet.ResourceS</StreamLocation>
 <Data name="ResourceDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
