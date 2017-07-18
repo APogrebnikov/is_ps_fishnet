@@ -14,7 +14,15 @@
 <Route Url="/test" Method="GET" Call="Test"/>
 
 <Route Url="/region/:id" Method="GET" Call="GetRegion"/>
-<Route Url="/region" Method="POST" Call="Fishnet.Region:SavePointForRegion"/>
+<Route Url="/regions" Method="GET" Call="GetRegions"/>
+<Route Url="/region/save" Method="POST" Call="SaveRegion"/>
+<Route Url="/region/addreg" Method="POST" Call="AddRegion" />
+
+
+<Route Url="company/:id" Method="GET" Call="GetCompany" />
+<!-- <Route Url="/region/setpoints/:lan&:lag" Method="POST" Call="SetPoints"/> -->
+
+
 
 
 
@@ -41,8 +49,49 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	w ##class(fishnet.Region).GetRegion(id)
-	q $$$OK
+  w ##class(fishnet.Region).GetRegion(id)
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="SaveRegion">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+    w ##class(fishnet.Region).SaveNewRegion(id)
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[
+/*
+ClassMethod AddRegion() As %String
+{
+  w ##class()
+  q $$$OK
+}
+*/
+]]></Content>
+</UDLText>
+
+<Method name="GetRegions">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  w ##class(fishnet.Region).GetRegions()
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetCompany">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  w ##class(fishnet.Company).GetCompanyById(id)
+  q $$$OK
 ]]></Implementation>
 </Method>
 </Class>
