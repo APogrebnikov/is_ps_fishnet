@@ -1,15 +1,19 @@
 controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc) {
 	var vm = this;
 	var polyList = [];
+
 	$scope.currentPolygon = "";
 	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"
 	$scope.id = 0;
 	var rid = $routeParams.regionid;
 
 	NgMap.getMap().then(function (map) {
+		NgMap.deleteMap(vm.map);
 		vm.map = map;
 		$scope.init();
 	});
+
+
 
 	$scope.openPolygonById = function(region){
 		var triangleCoords = [];
@@ -35,12 +39,16 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			//$scope.id = currentPolygon.get("indexID");
 		});
 
-
+		polyList.push(triangle);
 		triangle.setMap(vm.map);
 
 	}
 
 	$scope.init = function () {
+		for(var i = 0; i < polyList.length; i++){
+			polyList[i].setMap(null);
+		}
+
 		if ($routeParams.regionid) {
 
 			regionSrvc.get(rid).then(
@@ -56,10 +64,11 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
 	$scope.openPolygon = function () {
 
-		regionSrvc.get(1).then(
+		regionSrvc.get(3).then(
 			function (data) {
 				alert(data.data.name + '\n' + data.data.coordinates[0].latitude + '\n' + data.data.coordinates[0].longtude);
 				$scope.id = data.data.name;
+				
 			},
 			function (data, status, headers, config) {
 				alert(status);
