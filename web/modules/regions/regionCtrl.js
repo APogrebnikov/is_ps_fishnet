@@ -8,7 +8,6 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 	var rid = $routeParams.regionid;
 
 	NgMap.getMap().then(function (map) {
-		NgMap.deleteMap(vm.map);
 		vm.map = map;
 		$scope.init();
 	});
