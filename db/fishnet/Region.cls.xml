@@ -18,7 +18,7 @@
 <Type>%String</Type>
 </Property>
 
-<Property name="resource">
+<Property name="resourcies">
 <Type>fishnet.Resource</Type>
 <Collection>list</Collection>
 </Property>
@@ -67,6 +67,7 @@
 	set region = ##class(fishnet.Region).%OpenId(id,,.sc)	
 	quit:$$$ISERR(sc) sc	
 	set proxy = {}	
+	set proxy.id = region.id
 	set proxy.name = region.name	
 	set proxy.coordinates = []	
 	for i=1:1:region.coordinates.Count(){
@@ -105,8 +106,18 @@
 
 <Method name="GetResourceForRegion">
 <Implementation><![CDATA[
-	set region = $this
-	set proxy = {}
+	set region = $this	
+	quit:$$$ISERR(sc) sc	
+	set proxy = {}	
+	set proxy.name = region.name	
+	set proxy.resourcies = []	
+	for i=1:1:region.resourcies.Count(){
+		set res = {}
+		set res.name = region.resourcies.GetAt(i).name
+		set res.code = region.resourcies.GetAt(i).code		
+		do proxy.resourcies.%Push(point)	
+	}	
+	quit proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
@@ -162,6 +173,9 @@
 </Value>
 <Value name="5">
 <Value>code</Value>
+</Value>
+<Value name="6">
+<Value>resourcies</Value>
 </Value>
 </Data>
 </Storage>

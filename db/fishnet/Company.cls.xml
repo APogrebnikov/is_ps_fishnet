@@ -21,7 +21,7 @@
 <ClassMethod>1</ClassMethod>
 <FormalSpec>id:%String</FormalSpec>
 <Implementation><![CDATA[
-	set company = ##class(fishnet.Region).%OpenId(id,,.sc)
+	set company = ##class(fishnet.Company).%OpenId(id,,.sc)
 	quit:$$$ISERR(sc) sc
 	set proxy = {}
 	set proxy.name = company.name
@@ -101,7 +101,7 @@
       	
       	// ... for other property
       	     		
-		$$$THROWONERROR(st, region.%Save())
+		$$$THROWONERROR(st, company.%Save())
 	}
 	catch ex{
 		s st=st.AsStatus()
@@ -143,6 +143,9 @@
 </Value>
 <Value name="4">
 <Value>region</Value>
+</Value>
+<Value name="5">
+<Value>code</Value>
 </Value>
 </Data>
 </Storage>

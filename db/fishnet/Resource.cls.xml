@@ -52,15 +52,15 @@
 	
 	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
       	// Open object by ID
-      	set company = ##class(fishnet.Resource).%OpenId(data.id,,.st)    	
+      	set res = ##class(fishnet.Resource).%OpenId(data.id,,.st)    	
       	// If can't open-create new
-      	if $$$ISERR(st) set company = ##class(fishnet.Resource).%New()
-      	set company.name = $ZCONVERT(data.name, "I", "UTF8")
-      	set company.code = $ZCONVERT(data.code, "I", "UTF8")
+      	if $$$ISERR(st) set res = ##class(fishnet.Resource).%New()
+      	set res.name = $ZCONVERT(data.name, "I", "UTF8")
+      	set res.code = $ZCONVERT(data.code, "I", "UTF8")
       	
       	// ... for other property
       	     		
-		$$$THROWONERROR(st, region.%Save())
+		$$$THROWONERROR(st, res.%Save())
 	}
 	catch ex{
 		s st=st.AsStatus()
