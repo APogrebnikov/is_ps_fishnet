@@ -8,6 +8,10 @@ mainModule.config(function ($routeProvider) {
     templateUrl: 'modules/regions/region.html',
     controller: 'regionController'
   });
+  $routeProvider.when('/regions', {
+    templateUrl: 'modules/regions/region.html',
+    controller: 'regionController'
+  });
   $routeProvider.when('/resource', {
     templateUrl: 'modules/resources/resource.html',
     controller: 'resourceController'
