@@ -1,3 +1,3 @@
 servicesModule.constant('settings',  {
-    server: 'http://127.0.0.1:5500/'    
+    server: 'http://localhost:57772/fishnetapi/'    
 });

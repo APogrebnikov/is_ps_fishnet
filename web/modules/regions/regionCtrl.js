@@ -1,4 +1,4 @@
-controllersModule.controller('regionController',function ($scope,settings) {
+controllersModule.controller('regionController',function ($scope,settings,regionSrvc) {
     console.log("hello");
     $scope.hello = "helloRegion "+ settings.server ;
     $scope.page = {
@@ -6,6 +6,14 @@ controllersModule.controller('regionController',function ($scope,settings) {
     };
 
     $scope.page.init = function () {
+       regionSrvc.get(1).then(
+            function (data) {
+                //alert(data.data.name+'\n'+data.data.coordinates[0].latitude+'\n'+data.data.coordinates[0].longtude);
+                alert(data.data.name+'\n'+JSON.stringify(data.data.coordinates[0]));
+            },
+            function (data, status, headers, config) {
+                alert(status);
+            });
        /*  if (false) { //PlaceHolder
             $scope.page.formCaption = "Редактирование группы";
             $scope.page.formBtnSubmitName = "Сохранить";

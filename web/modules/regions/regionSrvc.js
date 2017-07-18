@@ -5,11 +5,11 @@
 Регионы
 ===========================================================================================*/
 
-servicesModule.factory('regionSrvc', settings, function(RESTSrvc) {    
+servicesModule.factory('regionSrvc', function(RESTSrvc,settings) {    
     return {
     	/* Все регионы */
         getAll: function(){
-            return RESTSrvc.getPromise({method: 'GET', url: settings.server + '/json/region'});
+            return RESTSrvc.getPromise({method: 'GET', url: settings.server + 'region'});
         },
         /* Все группы факультета */
         /* getRegions: function(id){
@@ -17,15 +17,15 @@ servicesModule.factory('regionSrvc', settings, function(RESTSrvc) {
         }, */
 		/*Сохранить / создать регион */
 		save: function(region){
-			return RESTSrvc.getPromice({method: 'POST', url: settings.server + '/json/region', data: region});
+			return RESTSrvc.getPromise({method: 'POST', url: settings.server + 'region', data: region});
 		},
 		/* Удалить регион по ИД */
 		remove: function(id){
-			return RESTSrvc.getPromice({method: 'DELETE', url: settings.server + '/json/region/' + id});
+			return RESTSrvc.getPromise({method: 'DELETE', url: settings.server + 'region/' + id});
 		},
 		/* Получить регион по ИД */
 		get: function(id){
-			return RESTSrvc.getPromice({method: 'GET', url: settings.server + '/json/region/' + id});
+			return RESTSrvc.getPromise({method: 'GET', url: settings.server + 'region/' + id});
 		}
 
     }

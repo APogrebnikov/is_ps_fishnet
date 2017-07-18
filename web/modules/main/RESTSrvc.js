@@ -11,10 +11,10 @@ servicesModule.factory('RESTSrvc', function($http, $q) {
             var deferred = $q.defer();
 
             $http(config).
-                success(function(data, status, headers, config){
+                then(function(data, status, headers, config){
                     deferred.resolve(data);
-                }).
-                error(function(data, status, headers, config){
+                },
+                function(data, status, headers, config){
                     deferred.reject(data, status, headers, config);
                 });
 

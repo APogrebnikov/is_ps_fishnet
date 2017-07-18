@@ -14,4 +14,5 @@ mainModule.config(function ($routeProvider) {
   });
   $routeProvider.otherwise({
     redirectTo: '/region'
-  });
+  })
+});
