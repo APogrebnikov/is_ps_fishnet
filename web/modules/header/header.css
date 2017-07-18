@@ -90,4 +90,5 @@
 #header .navbar-brand {
     color: #3a4d79 !important;
     text-decoration: none !important;
+    margin-right: 10px;
 }
