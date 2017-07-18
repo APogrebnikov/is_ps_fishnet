@@ -21,7 +21,7 @@
 <ClassMethod>1</ClassMethod>
 <FormalSpec>id:%String</FormalSpec>
 <Implementation><![CDATA[
-	set company = ##class(fishnet.Region).%OpenId(id,,.sc)
+	set company = ##class(fishnet.Company).%OpenId(id,,.sc)
 	quit:$$$ISERR(sc) sc
 	set proxy = {}
 	set proxy.name = company.name

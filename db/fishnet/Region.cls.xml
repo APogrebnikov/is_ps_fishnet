@@ -67,6 +67,7 @@
 	set region = ##class(fishnet.Region).%OpenId(id,,.sc)	
 	quit:$$$ISERR(sc) sc	
 	set proxy = {}	
+	set proxy.id = region.id
 	set proxy.name = region.name	
 	set proxy.coordinates = []	
 	for i=1:1:region.coordinates.Count(){
