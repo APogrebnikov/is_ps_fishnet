@@ -1,0 +1,25 @@
+<div class="container" ng-controller="tableController">
+  <h2>Регионы</h2>
+  
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Название региона</th>
+        <th>Код региона</th>
+		<th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+		<tr ng-repeat="x in names">
+			<td>{{ $index + 1 }}</td>
+			<td>{{ x.name }}</td>
+			<td>{{ x.name }}</td>
+			<td>
+				<button type="button" class="btn btn-success" ng-click="deletePolygon()">Удалить</button>
+				<button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
+			</td>
+		</tr>
+    </tbody>
+  </table>
+</div>
