@@ -1,41 +1,43 @@
 <!doctype html>
 <html lang="ru">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Google Phone Gallery</title>
-	
-	<!-- <script src="lib/ng-map/ng-map.js"></script>`-->
-	<script src="lib/jquery-3.2.1/jquery-3.2.1.min.js"></script>
-	<link rel="stylesheet" href="style/bootstrap-3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style/bootstrap-3.3.7/css/bootstrap-theme.min.css">
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"></script>
-    <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /> -->
-  </head>
-  
-  <body ng-app="mainModule">
+
+    <link rel="stylesheet" type="text/css" href="style/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style/bootstrap-3.3.7/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"></script>
+</head>
+
+<body ng-app="mainModule">
+
+    <header-navbar></header-navbar>
+
     <div class="view-container">
-      <div ng-view class="view-frame"></div>
+        <div ng-view class="view-frame"></div>
     </div>
-	
-	<script src="lib/angular-1.6.4/angular.min.js"></script>
-	<script src="lib/ng-map/ng-map.min.js"></script>
 
-    <script src="lib/angular-1.6.4/angular-route.min.js"></script>
+    <!--Скрипты-->
+    <script src="lib/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="lib/angular-1.6.4/angular.min.js"></script>
+    <script type="text/javascript" src="lib/ng-map/ng-map.min.js"></script>
 
-	<script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script src="app.js"></script>
-    <script src="modules/main/master.js"></script>
-    <script src="modules/main/RESTSrvc.js"></script>
-    
-    <script src="modules/regions/regionCtrl.js"></script>
-    <script src="modules/resources/resourceCtrl.js"></script>
-     <script src="modules/regions/regionSrvc.js"></script>
+    <script type="text/javascript" src="lib/angular-1.6.4/angular-route.min.js"></script>
+
+    <script type="text/javascript" src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="modules/main/master.js"></script>
+    <script type="text/javascript" src="modules/main/RESTSrvc.js"></script>
+    <script type="text/javascript" src="modules/header/header.js"></script>
+
+    <script type="text/javascript" src="modules/regions/regionCtrl.js"></script>
+    <script type="text/javascript" src="modules/resources/resourceCtrl.js"></script>
+    <script type="text/javascript" src="modules/regions/regionSrvc.js"></script>
     <!-- <script src="modules/resources/resourceSrvc.js"></script> -->
-	
-	
-	
-	<!-- <script src="lib/google-map/gmap.js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"></script> -->
-   
-	
-  </body>
+
+    <!-- <script src="lib/google-map/gmap.js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"></script> -->
+</body>
+
 </html>
