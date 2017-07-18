@@ -18,7 +18,7 @@ mainModule.config(function ($routeProvider) {
   });
   $routeProvider.when('/table', {
     templateUrl: 'modules/table/table.html',
-    controller: 'resourceController'
+    controller: 'tableController'
   });
   $routeProvider.otherwise({
     redirectTo: '/region'
