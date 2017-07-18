@@ -29,7 +29,13 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			draggable: false,
 			indexID: rid,
 		});
-
+        
+        triangle.addListener('click', function(e){
+            alert("Hello in Poligon" + this.getPath().getAt(0).lat);
+        });
+        
+        triangle.setMap(vm.map);
+        
 		google.maps.event.addListener(triangle, 'click', function (event) {
 			currentPolygon = triangle;
 			//$scope.id = currentPolygon.get("indexID");
@@ -151,6 +157,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
 		google.maps.event.addListener(triangle, 'click', function (event) {
 			currentPolygon = triangle;
+            alert("Hello in Poligon" + triangle.paths[0].lat);
 			//$scope.id = currentPolygon.get("indexID");
 		});
 

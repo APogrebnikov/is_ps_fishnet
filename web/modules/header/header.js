@@ -3,7 +3,7 @@ controllersModule.controller('headerController', function ($scope, $location) {
     $scope.items = [
         {
             title: 'Регионы',
-            path: '/region',
+            //path: '/region',
             img: 'region.png'
         },
         {
