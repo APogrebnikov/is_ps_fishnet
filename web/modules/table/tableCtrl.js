@@ -2,12 +2,11 @@ controllersModule.controller('tableController', function ($scope,$location, regi
 
 	$scope.regions = []; //= [1,2,3];
 
-	$scope.editRegion = function () {
-
-		$location.path('/region/1').replace();
+	$scope.editRegion = function (id) {
+		$location.path('/region/'+id).replace();
 	}
 
-	$scope.removeRegion = function () {
+	$scope.removeRegion = function (id) {
 
 
 	}

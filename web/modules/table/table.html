@@ -1,7 +1,7 @@
 <div class="container" ng-init = "init()">
   <h2>Регионы</h2>
   
-  <table class="table table-condensed">
+  <table class="table table-condensed table-hover">
     <thead>
       <tr>
         <th>#</th>
@@ -16,8 +16,8 @@
 			<td>{{ x.name }}</td>
 			<td>{{ x.name }}</td>
 			<td>
-				<button type="button" class="btn btn-success" ng-click="deleteRegion()">Удалить</button>
-				<button type="button" class="btn btn-info" ng-click="editRegion()">Редактировать</button>
+				<button type="button" class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editRegion(x.id)" title="Редактировать"></button>
+				<button type="button" class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteRegion(x.id)" title="Удалить"></button>
 			</td>
 		</tr>
     </tbody>
