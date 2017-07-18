@@ -1,29 +1,29 @@
-controllersModule.controller('regionController',function ($scope,settings,regionSrvc) {
+controllersModule.controller('regionController', function ($scope, settings, regionSrvc) {
     console.log("hello");
-    $scope.hello = "helloRegion "+ settings.server ;
+    $scope.hello = "helloRegion " + settings.server;
     $scope.page = {
         group: {}
     };
 
     $scope.page.init = function () {
-       regionSrvc.get(1).then(
+        regionSrvc.getAll().then(
             function (data) {
                 //alert(data.data.name+'\n'+data.data.coordinates[0].latitude+'\n'+data.data.coordinates[0].longtude);
-                alert(data.data.name+'\n'+JSON.stringify(data.data.coordinates[0]));
+                alert( JSON.stringify(data.data));
             },
             function (data, status, headers, config) {
                 alert(status);
             });
-       /*  if (false) { //PlaceHolder
-            $scope.page.formCaption = "Редактирование группы";
-            $scope.page.formBtnSubmitName = "Сохранить";
-            //$scope.page.loadGroup($routeParams.id);        
-        } else {
-            $scope.page.formCaption = "Добавление группы";
-            $scope.page.formBtnSubmitName = "Добавить";
-        } */
+        /*  if (false) { //PlaceHolder
+             $scope.page.formCaption = "Редактирование группы";
+             $scope.page.formBtnSubmitName = "Сохранить";
+             //$scope.page.loadGroup($routeParams.id);        
+         } else {
+             $scope.page.formCaption = "Добавление группы";
+             $scope.page.formBtnSubmitName = "Добавить";
+         } */
 
-       // $scope.page.loadRegion();
+        // $scope.page.loadRegion();
     };
 
     /* $scope.page.loadRegion = function (id) {
