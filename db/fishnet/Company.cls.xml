@@ -101,7 +101,7 @@
       	
       	// ... for other property
       	     		
-		$$$THROWONERROR(st, region.%Save())
+		$$$THROWONERROR(st, company.%Save())
 	}
 	catch ex{
 		s st=st.AsStatus()
@@ -143,6 +143,9 @@
 </Value>
 <Value name="4">
 <Value>region</Value>
+</Value>
+<Value name="5">
+<Value>code</Value>
 </Value>
 </Data>
 </Storage>
