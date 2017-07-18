@@ -1,7 +1,6 @@
 controllersModule.controller('headerController', function ($scope, $location) {
     $scope.location = $location;
-    $scope.allItems = 
-    [
+    $scope.items = [
         {
             title: 'Регионы',
             path: '/region',
@@ -29,13 +28,17 @@ controllersModule.controller('headerController', function ($scope, $location) {
         }
     ];
 
-    $scope.items = [];
 
     $scope.isCurrentPath = function (item) {
-        if (item.items)
+        if (item.items) {
+            var x=item.items.some(it => it.path == $location.path()) || item.path == $location.path();
             return item.items.some(it => it.path == $location.path()) || item.path == $location.path();
-        if (item.paths)
+        }
+        if (item.paths) {
+            var x = item.paths.some(it => it == $location.path()) || item.path == $location.path();
             return item.paths.some(it => it == $location.path()) || item.path == $location.path();
+        }
+        var x=$location.path();
         return item.path == $location.path();
     }
 
