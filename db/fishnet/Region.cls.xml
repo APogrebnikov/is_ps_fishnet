@@ -16,12 +16,42 @@
 
 <Property name="resource">
 <Type>fishnet.Resource</Type>
+<Collection>list</Collection>
 </Property>
 
-<Method name="GetResourceForRegion">
+<Method name="GetRegions">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	set region = $this
-	set proxy = {}
+	
+	set st = $$$OK
+	
+	try{
+		set proxy = {}
+		set proxy.children = []
+		
+		&sql(DECLARE RgCur CURSOR FOR 
+		 	 SELECT ID
+		 	 FROM fishnet.Region)	
+		
+		&sql(OPEN RgCur)
+		for  
+		{	
+			&sql(FETCH RgCur INTO :id) 
+			quit:(SQLCODE '= 0)
+			
+			do proxy.children.%Push(##class(fishnet.Region).%OpenId(id).RegionToJSON())
+		}
+		
+		&sql(CLOSE RgCur)
+		
+		do proxy.%ToJSON()
+	}
+	catch (ex){
+		set st = ex.AsStatus()
+	}
+	
+	quit st
 ]]></Implementation>
 </Method>
 
@@ -30,16 +60,11 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	set region = ##class(fishnet.Region).%OpenId(id,,.sc)
-	
-	quit:$$$ISERR(sc) sc
-	
-	set proxy = {}
-	
-	set proxy.name = region.name
-	
-	set proxy.coordinates = []
-	
+	set region = ##class(fishnet.Region).%OpenId(id,,.sc)	
+	quit:$$$ISERR(sc) sc	
+	set proxy = {}	
+	set proxy.name = region.name	
+	set proxy.coordinates = []	
 	for i=1:1:region.coordinates.Count(){
 		set point = {}
 		set point.longtude = region.coordinates.GetAt(i).longtude
@@ -47,57 +72,18 @@
 		do proxy.coordinates.%Push(point)	
 	}	
 	quit proxy.%ToJSON()
-]]></Implementation>
-</Method>
-
-<Method name="ToJSON">
-<ReturnType>%Status</ReturnType>
-<Implementation><![CDATA[
-	set region = $this
-		
-	set proxy = {}
-	
-	set proxy.name = region.name
-	
-	set proxy.coordinates = []
-	
-	for i=1:1:region.coordinates.Count(){
-		set point = {}
-		set point.longtude = region.coordinates.GetAt(i).longtude
-		set point.latitude = region.coordinates.GetAt(i).latitude		
-		do proxy.coordinates.%Push(point)	
-	}	
-	quit proxy.%ToJSON()
-]]></Implementation>
-</Method>
-
-<Method name="SetPointForRegion">
-<FormalSpec>latitude:%Decimal,longtude:%Decimal</FormalSpec>
-<ReturnType>%Status</ReturnType>
-<Implementation><![CDATA[
-	set coord = ##class(fishnet.Coordinate).%New()
-	set coord.latitude = latitude
-	set coord.longtude = longtude
-	do ..coordinates.Insert(coord)
-	do ..%Save()
-	q $$$OK
 ]]></Implementation>
 </Method>
 
 <Method name="SaveNewRegion">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	set st = $$$OK
-		
-	try{	
-	
-	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
-      	
-      	// Open region by ID
-      	set region = ##class(fishnet.Region).%OpenId(data.id,,.st)
-      	
-      	// If can't open-create new
-      	if $$$ISERR(st) set region = ##class(fishnet.Region).%New()
-      	
+	set st = $$$OK		
+	try{		
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))      	
+      	// Create new region
+      	set region = ##class(fishnet.Region).%New()
       	set region.name = $ZCONVERT(data.name, "I", "UTF8")
       	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")     		
 		$$$THROWONERROR(st, region.%Save())
@@ -105,6 +91,72 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
+	quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetResourceForRegion">
+<Implementation><![CDATA[
+	set region = $this
+	set proxy = {}
+]]></Implementation>
+</Method>
+
+<Method name="SetChangeOfRegion">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set st = $$$OK		
+	try{		
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+      	
+      	// Open region by ID
+      	set region = ##class(fishnet.Region).%OpenId(data.id,,.st)
+      	set region.name = ""
+       	set region.coordinates = ""
+      	set region.name = $ZCONVERT(data.name, "I", "UTF8")
+      	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")     		
+		$$$THROWONERROR(st, region.%Save())
+	}
+	catch ex{
+		s st=st.AsStatus()
+	}
+	quit st
+]]></Implementation>
+</Method>
+
+<Method name="RegionToJSON">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set region = $this
+ set proxy = {}
+ set proxy.name = region.name
+ set proxy.coordinates = []
+ for i=1:1:region.coordinates.Count(){
+ 	set point = {}
+ 	set point.longtude = region.coordinates.GetAt(i).longtude
+	set point.latitude = region.coordinates.GetAt(i).latitude		
+ 	do proxy.coordinates.%Push(point)	
+ }	
+ 	quit proxy.%ToJSON()
+]]></Implementation>
+</Method>
+
+<Method name="SetPointForRegion">
+<FormalSpec>latitude:%Decimal,longtude:%Decimal</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+
+ set coord = ##class(fishnet.Coordinate).%New()
+
+ set coord.latitude = latitude
+
+ 	set coord.longtude = longtude
+
+ 	do ..coordinates.Insert(coord)
+
+ 	do ..%Save()
+
+ 	q $$$OK
 ]]></Implementation>
 </Method>
 
