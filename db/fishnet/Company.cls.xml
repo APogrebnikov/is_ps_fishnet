@@ -25,20 +25,49 @@
 ]]></Implementation>
 </Method>
 
-<Method name="SaveNewCompany">
+<Method name="GetCompanies">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+	set st = $$$OK	
+	try{
+		set proxy = {}
+		set proxy.children = []		
+		&sql(DECLARE CoCur CURSOR FOR 
+		 	 SELECT ID
+		 	 FROM fishnet.Company)	
+		
+		&sql(OPEN CoCur)
+		for  
+		{	
+			&sql(FETCH CoCur INTO :id) 
+			quit:(SQLCODE '= 0)
+			
+			do proxy.children.%Push(##class(fishnet.Company).%OpenId(id).CompanyToJSON())
+		}		
+		&sql(CLOSE CoCur)		
+		w proxy.%ToJSON()
+	}
+	catch (ex){
+		set st = ex.AsStatus()
+	}	
+	quit st
+]]></Implementation>
+</Method>
+
+<Method name="SaveCompany">
+<ClassMethod>1</ClassMethod>
 <Implementation><![CDATA[
 	set st = $$$OK
 		
 	try{	
 	
 	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
-      	
       	// Open region by ID
-      	set company = ##class(fishnet.Company).%OpenId(data.id,,.st)
-      	
+      	set company = ##class(fishnet.Company).%OpenId(data.id,,.st)    	
       	// If can't open-create new
       	if $$$ISERR(st) set company = ##class(fishnet.Company).%New()
-      	
       	set company.name = $ZCONVERT(data.name, "I", "UTF8")
       	set company.phone = $ZCONVERT(data.phone, "I", "UTF8")     		
 		$$$THROWONERROR(st, region.%Save())
@@ -46,6 +75,18 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
+	quit st
+]]></Implementation>
+</Method>
+
+<Method name="CompanyToJSON">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set company = $this
+ set proxy = {}
+ set proxy.name = company.name
+ set proxy.phone = company.phone
+ quit proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
