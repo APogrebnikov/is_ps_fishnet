@@ -19,6 +19,6 @@ mainModule.config(function ($routeProvider) {
     controller: 'tableController'
   });
   $routeProvider.otherwise({
-    redirectTo: '/region'
+    redirectTo: '/table'
   })
 });
