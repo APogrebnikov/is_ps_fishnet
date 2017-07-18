@@ -1,7 +1,0 @@
-fishnet.Company.cls
-fishnet.Coordinate.cls
-fishnet.Quota.cls
-fishnet.Region.cls
-fishnet.Resource.cls
-fishnet.Tool.cls
-fishnet.WorkObject.cls

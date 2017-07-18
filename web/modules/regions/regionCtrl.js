@@ -13,7 +13,7 @@ controllersModule.controller('regionController', function ($scope, NgMap, region
 			
 				regionSrvc.get(1).then(
 				function (data) {
-					//alert(data.data.name+'\n'+data.data.coordinates[0].latitude+'\n'+data.data.coordinates[0].longtude);
+					alert(data.data.name+'\n'+data.data.coordinates[0].latitude+'\n'+data.data.coordinates[0].longtude);
 					$scope.id = data.data.name;
 				},
 				function (data, status, headers, config) {
