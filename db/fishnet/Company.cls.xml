@@ -8,8 +8,13 @@
 <Type>%String</Type>
 </Property>
 
-<Property name="phone">
+<Property name="code">
 <Type>%String</Type>
+</Property>
+
+<Property name="region">
+<Type>fishnet.Region</Type>
+<Collection>list</Collection>
 </Property>
 
 <Method name="GetCompanyById">
@@ -20,32 +25,102 @@
 	quit:$$$ISERR(sc) sc
 	set proxy = {}
 	set proxy.name = company.name
-	set proxy.phone = company.phone
+	set proxy.code = company.code
 	quit proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
-<Method name="SaveNewCompany">
+<Method name="GetCompanies">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+	set st = $$$OK	
+	try{
+		set proxy = {}
+		set proxy.children = []		
+		&sql(DECLARE CoCur CURSOR FOR 
+		 	 SELECT ID
+		 	 FROM fishnet.Company)	
+		
+		&sql(OPEN CoCur)
+		for  
+		{	
+			&sql(FETCH CoCur INTO :id) 
+			quit:(SQLCODE '= 0)
+			
+			do proxy.children.%Push(##class(fishnet.Company).%OpenId(id).CompanyToJSON())
+		}		
+		&sql(CLOSE CoCur)		
+		w proxy.%ToJSON()
+	}
+	catch (ex){
+		set st = ex.AsStatus()
+	}	
+	quit st
+]]></Implementation>
+</Method>
+
+<Method name="SaveRequisetesCompany">
+<ClassMethod>1</ClassMethod>
 <Implementation><![CDATA[
 	set st = $$$OK
 		
 	try{	
 	
 	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
-      	
-      	// Open region by ID
-      	set company = ##class(fishnet.Company).%OpenId(data.id,,.st)
-      	
+      	// Open object by ID
+      	set company = ##class(fishnet.Company).%OpenId(data.id,,.st)    	
       	// If can't open-create new
       	if $$$ISERR(st) set company = ##class(fishnet.Company).%New()
-      	
       	set company.name = $ZCONVERT(data.name, "I", "UTF8")
-      	set company.phone = $ZCONVERT(data.phone, "I", "UTF8")     		
+      	set company.code = $ZCONVERT(data.code, "I", "UTF8")
+      	
+      	// ... for other property
+      	     		
 		$$$THROWONERROR(st, region.%Save())
 	}
 	catch ex{
 		s st=st.AsStatus()
 	}
+	quit st
+]]></Implementation>
+</Method>
+
+<Method name="SaveRegionOfCompany">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	set st = $$$OK		
+	try{		
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+      	// Open region by ID
+      	set company = ##class(fishnet.Company).%OpenId(data.id,,.st)    	
+      	// If can't open-create new
+      	if $$$ISERR(st) set company = ##class(fishnet.Company).%New()
+      	set company.region = $ZCONVERT(data.region, "I", "UTF8")
+      	
+      	// ... for other property
+      	     		
+		$$$THROWONERROR(st, region.%Save())
+	}
+	catch ex{
+		s st=st.AsStatus()
+	}
+	quit st
+]]></Implementation>
+</Method>
+
+<Method name="CompanyToJSON">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set company = $this
+ set proxy = {}
+ set proxy.name = company.name
+ set proxy.code = company.code
+ 
+ // ... for other property
+ 
+ quit proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
@@ -65,6 +140,9 @@
 </Value>
 <Value name="3">
 <Value>phone</Value>
+</Value>
+<Value name="4">
+<Value>region</Value>
 </Value>
 </Data>
 </Storage>

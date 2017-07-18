@@ -9,7 +9,7 @@ servicesModule.factory('regionSrvc', function(RESTSrvc,settings) {
     return {
     	/* Все регионы */
         getAll: function(){
-            return RESTSrvc.getPromise({method: 'GET', url: settings.server + 'region'});
+            return RESTSrvc.getPromise({method: 'GET', url: settings.server + 'regions'});
         },
         /* Все группы факультета */
         /* getRegions: function(id){

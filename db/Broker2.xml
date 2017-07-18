@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-18 12:43:41">
+<Class name="fishnet.Broker">
+<Super>%CSP.REST</Super>
+<TimeChanged>64482,43778.694384</TimeChanged>
+<TimeCreated>64481,38930.754632</TimeCreated>
+
+<XData name="UrlMap">
+<Data><![CDATA[
+<Routes>
+<Route Url="/test" Method="GET" Call="Test"/>
+
+<Route Url="/region/:id" Method="GET" Call="GetRegion"/>
+<Route Url="/regions" Method="GET" Call="GetRegions"/>
+<Route Url="/region/save" Method="POST" Call="SaveRegion"/>
+<Route Url="/region/addreg" Method="POST" Call="AddRegion" />
+
+
+<Route Url="company/:id" Method="GET" Call="GetCompany" />
+<!-- <Route Url="/region/setpoints/:lan&:lag" Method="POST" Call="SetPoints"/> -->
+
+
+
+
+
+<!--<Route Url="/region" Method="GET" Call="Fishnet.Json:GetRegions"/> 
+<Route Url="/json/region:id" Method="GET" Call="Fishnet.Json:GetRegionById"/>
+<Route Url="/json/region:id" Method="POST" Call="Fishnet.Json:SaveRegion"/>
+<Route Url="json/region" Mehtod="DELETE" Call="fishnet.Json:DeleteRegion"/>
+-->
+</Routes>
+]]></Data>
+</XData>
+
+<Method name="Test">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    w "{'Status':'OK'}"
+    q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetRegion">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  w ##class(fishnet.Region).GetRegion(id)
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="SaveRegion">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+    w ##class(fishnet.Region).SaveNewRegion(id)
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[
+/*
+ClassMethod AddRegion() As %String
+{
+  w ##class()
+  q $$$OK
+}
+*/
+]]></Content>
+</UDLText>
+
+<Method name="GetRegions">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  w ##class(fishnet.Region).GetRegions()
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetCompany">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  w ##class(fishnet.Company).GetCompanyById(id)
+  q $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>
