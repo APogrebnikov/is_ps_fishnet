@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-07-19 14:20:40">
+<Export generator="Cache" version="25">
 <Class name="fishnet.RegionResource">
 <Super>%Persistent</Super>
-<TimeChanged>64483,51561.912574</TimeChanged>
 <TimeCreated>64482,57980.141608</TimeCreated>
 
 <Property name="quotaId">
