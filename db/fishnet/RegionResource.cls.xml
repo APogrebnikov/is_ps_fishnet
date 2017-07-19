@@ -4,10 +4,6 @@
 <Super>%Persistent</Super>
 <TimeCreated>64482,57980.141608</TimeCreated>
 
-<Property name="quotaId">
-<Type>%Numeric</Type>
-</Property>
-
 <Property name="regions">
 <Type>fishnet.Region</Type>
 <Cardinality>one</Cardinality>

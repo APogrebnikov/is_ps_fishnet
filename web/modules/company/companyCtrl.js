@@ -6,6 +6,14 @@ controllersModule.controller('companyController', function ($scope, $routeParams
     $scope.currentPolygon = "";
     $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"
     $scope.id = 0;
+    companySrvc.get($routeParams.companyid).then(
+                function (company) {
+                     $scope.company = company.data;
+                },
+                function (data, status, headers, config) {
+                    alert(status);
+                });
+    //$scope.companyName = company.name;
     var rid = 3;//companySrvc.get($routeParams.companyid);
 
     NgMap.getMap().then(function (map) {

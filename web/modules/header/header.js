@@ -3,7 +3,7 @@ controllersModule.controller('headerController', function ($scope, $location) {
     $scope.items = [
         {
             title: 'Регионы',
-            path: '/table',
+            path: '/regionslist',
             img: 'region.png'
         },
         {
@@ -13,9 +13,9 @@ controllersModule.controller('headerController', function ($scope, $location) {
         },
         {
             title: 'Компании',
-            path: '/company',
+            path: '/companieslist',
             img: 'company.png',
-            items: [
+           /*  items: [
                 {
                     title: 'Справочник',
                     path: '/company/editor'
@@ -24,7 +24,7 @@ controllersModule.controller('headerController', function ($scope, $location) {
                     title: 'Отчеты',
                     path: '/company/report'
                 }
-            ]
+            ] */
         }
     ];
 

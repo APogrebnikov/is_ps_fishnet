@@ -6,7 +6,7 @@ controllersModule.controller('tableCompanyController', function ($scope,$locatio
 		$location.path('/company/'+id).replace();
 	}
 
-	$scope.removeRegion = function (id) {
+	$scope.removeCompany = function (id) {
 
 
 	}
