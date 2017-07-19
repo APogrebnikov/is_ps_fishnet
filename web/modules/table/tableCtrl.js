@@ -12,7 +12,7 @@ controllersModule.controller('tableController', function ($scope,$location, regi
 	}
 	
 	$scope.addRegion = function (){
-		$location.path('/region/'+id).replace()
+		$location.path('/region/').replace()
 	}
 	
 	$scope.init = function () {

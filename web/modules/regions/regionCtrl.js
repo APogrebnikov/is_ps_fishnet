@@ -71,8 +71,23 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
                 });
         }
+		else{
+			
+			regionSrvc.getAll().then(
+				function(data){
+					$scope.openAllRegions(data.data)
+				},
+				function (data,status,headers,config){
+					
+				});
+		}
     }
-
+	
+	$scope.openAllRegions = function(regions){
+		for(var i = 0; i < regions.length; i++){
+			
+		}
+	}
 
     $scope.openPolygon = function () {
 
