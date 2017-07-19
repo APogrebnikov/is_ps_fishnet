@@ -14,11 +14,15 @@ mainModule.config(function ($routeProvider) {
     templateUrl: 'modules/resources/resource.html',
     controller: 'resourceController'
   });
-  $routeProvider.when('/table', {
+  $routeProvider.when('/regionslist', {
     templateUrl: 'modules/table/table.html',
     controller: 'tableController'
   });
+  $routeProvider.when('/companieslist', {
+    templateUrl: 'modules/table/tableCompany.html',
+    controller: 'tableCompanyController'
+  });
   $routeProvider.otherwise({
-    redirectTo: '/table'
+    redirectTo: '/regionslist'
   })
 });
