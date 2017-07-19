@@ -10,6 +10,11 @@ controllersModule.controller('tableController', function ($scope,$location, regi
 
 
 	}
+	
+	$scope.addRegion = function (){
+		$location.path('/region/'+id).replace()
+	}
+	
 	$scope.init = function () {
 		regionSrvc.getAll().then(function (data) {
 			alert(data.data.toSource());
