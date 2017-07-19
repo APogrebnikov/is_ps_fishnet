@@ -1,4 +1,4 @@
-controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc,$rootScope, $route) {
+controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc,$rootScope, $location) {
     var vm = this;
     var polyList = [];
 	$scope.regionEdit = true;
@@ -10,11 +10,16 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
     $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"
    
     var rid = $routeParams.regionid;
-	//alert($routeParams.toSource());
+	
 	$scope.clearContentsOfMap = function(){
 		for(var i = 0; i < $rootScope.regionPolygon.length; i++){
 			$rootScope.regionPolygon[i].setMap(null);
 		}
+		
+	}
+	
+	$scope.backToRegionList = function(){
+		$location.path('/').reload();
 		
 	}
 	
@@ -66,7 +71,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 					lng: lng - scaling
 				}
 			];
-			
+			for(var i = 0; i < triangleCoords.length; i++){
+				summx += triangleCoords[i].lat;
+				summy += triangleCoords[i].lng;
+			}
+			x = triangleCoords.length;
+			y = triangleCoords.length;
 		}
         var triangle = new google.maps.Polygon({
             paths: triangleCoords,
@@ -85,8 +95,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		$scope.name=$scope.currentPolygon.name;
 		$scope.code=$scope.currentPolygon.code;
 		
-        triangle.setMap(vm.map);
-		vm.map.setCenter(new google.maps.LatLng(summx/x, summy/y));
+        //triangle.setMap(vm.map);
 		
         google.maps.event.addListener(triangle, 'click', function (event) {
           
@@ -96,6 +105,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         //polyList.push(triangle);
         triangle.setMap(vm.map);
         $rootScope.regionPolygon.push(triangle);
+		vm.map.setCenter(new google.maps.LatLng(summx/x, summy/y));
     }
 
     $scope.init = function () {
