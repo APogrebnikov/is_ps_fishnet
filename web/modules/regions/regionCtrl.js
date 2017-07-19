@@ -1,7 +1,8 @@
 controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc,$rootScope) {
     var vm = this;
     var polyList = [];
-
+	var regionEdit = true;
+	
     $scope.currentPolygon = "";
     $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"
     $scope.id = 0;
@@ -61,7 +62,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         }
 
         if ($routeParams.regionid) {
-
+			regionEdit = false;
             regionSrvc.get(rid).then(
                 function (data) {
                     $scope.openPolygonById(data.data);
@@ -113,12 +114,13 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
             for (var i = 0; i < vertices.length; i++) {
                 var xy = vertices.getAt(i);
                 polygonPoints.push({
-                    lat: xy.lat(),
-                    lon: xy.lng()
+                    latitude: xy.lat(),
+                    longtude: xy.lng()
                 });
             }
-            currentPolygon = "";
-            return polygonPoints;
+            var editRegion = JSON.stringify({name: "asd", code: "123", coordinates: polygonPoints});
+			regionSrvc.save(editRegion);
+			
         } else {
             alert("No polygons chosen");
         }
