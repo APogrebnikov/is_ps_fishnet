@@ -19,8 +19,7 @@
 	
 	set st = $$$OK	
 	try{
-		set proxy = {}
-		set proxy.children = []		
+		set proxy = []	
 		&sql(DECLARE ReCur CURSOR FOR 
 		 	 SELECT ID
 		 	 FROM fishnet.Resource)	
@@ -30,16 +29,14 @@
 		{	
 			&sql(FETCH ReCur INTO :id) 
 			quit:(SQLCODE '= 0)
-			
-			do proxy.children.%Push(##class(fishnet.Resource).%OpenId(id).ResourceToJSON())
+			do proxy.%Push(##class(fishnet.Resource).%OpenId(id).ResourceToJSON())
 		}		
 		&sql(CLOSE ReCur)		
-		w proxy.%ToJSON()
 	}
 	catch (ex){
 		set st = ex.AsStatus()
 	}	
-	quit st
+	q proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
@@ -65,7 +62,6 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
-	quit st
 ]]></Implementation>
 </Method>
 

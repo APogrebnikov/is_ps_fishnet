@@ -36,14 +36,13 @@
 			quit:(SQLCODE '= 0)			
 			do proxy.%Push(##class(fishnet.Region).%OpenId(id).RegionToJSON())
 		}		
-		&sql(CLOSE RgCur)		
-		w proxy.%ToJSON()
+		&sql(CLOSE RgCur)		 
 	}
 	catch (ex){
 		set st = ex.AsStatus()
 	}
 	
-	quit st
+	quit proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
@@ -65,8 +64,7 @@
 		set point.latitude = region.coordinates.GetAt(i).latitude		
 		do proxy.coordinates.%Push(point)	
 	}	
-	w proxy.%ToJSON()
-	q $$$OK
+	q proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
@@ -96,7 +94,6 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
-	quit st
 ]]></Implementation>
 </Method>
 
@@ -127,16 +124,13 @@
  	set coord.longtude = longtude
  	do ..coordinates.Insert(coord)
  	do ..%Save()
- 	q $$$OK
 ]]></Implementation>
 </Method>
 
 <Method name="DeleteRegion">
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
-<Implementation><![CDATA[
-	do ##class(fishnet.Region).%DeleteId(id)
-	q $$$OK
+<Implementation><![CDATA[	do ##class(fishnet.Region).%DeleteId(id)
 ]]></Implementation>
 </Method>
 
