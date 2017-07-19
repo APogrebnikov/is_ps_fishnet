@@ -52,8 +52,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         triangle.setMap(vm.map);
 
         google.maps.event.addListener(triangle, 'click', function (event) {
-            currentPolygon = triangle;
-            //$scope.id = currentPolygon.get("indexID");
+            $scope.currentPolygon = triangle;
+            //$scope.id = $scope.currentPolygon.get("indexID");
         });
 
         //polyList.push(triangle);
@@ -124,8 +124,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			triangle.setMap(vm.map);
 
 			google.maps.event.addListener(triangle, 'click', function (event) {
-				currentPolygon = triangle;
-				//$scope.id = currentPolygon.get("indexID");
+				$scope.currentPolygon = triangle;
+				//$scope.id = $scope.currentPolygon.get("indexID");
 			});
 
 			//polyList.push(triangle);
@@ -149,14 +149,14 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
 
     var isPolygonChosen = function () {
-        if (currentPolygon != "") return true;
+        if ($scope.currentPolygon != "") return true;
         else return false;
     }
 
     $scope.deletePolygon = function () {
         if (isPolygonChosen()) {
-            currentPolygon.setMap(null);
-            currentPolygon = "";
+            $scope.currentPolygon.setMap(null);
+            $scope.currentPolygon = "";
         } else {
             alert("No polygons chosen");
         }
@@ -164,12 +164,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
     $scope.savePolygon = function () {
         if (isPolygonChosen()) {
-            currentPolygon.setOptions({
+            $scope.currentPolygon.setOptions({
                 editable: false,
                 draggable: false
             });
 
-            var vertices = currentPolygon.getPath();
+            var vertices = $scope.currentPolygon.getPath();
             var polygonPoints = [];
             for (var i = 0; i < vertices.length; i++) {
                 var xy = vertices.getAt(i);
@@ -178,7 +178,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
                     longtude: xy.lng()
                 });
             }
-            var editRegion = JSON.stringify({id: currentPolygon.indexID, name: currentPolygon.name, code: currentPolygon.code, coordinates: polygonPoints});
+            var editRegion = JSON.stringify({id: $scope.currentPolygon.indexID, name: $scope.currentPolygon.name, code: $scope.currentPolygon.code, coordinates: polygonPoints});
 			regionSrvc.save(editRegion);
 			
         } else {
@@ -191,11 +191,11 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
     $scope.editPolygon = function () {
         if (isPolygonChosen()) {
 			
-				currentPolygon.setOptions({
+				$scope.currentPolygon.setOptions({
 					editable: true,
 					draggable: true
 				});
-			alert(currentPolygon.indexID);
+			alert($scope.currentPolygon.indexID);
 		}
         else alert("No polygons chosen");
     }
@@ -235,8 +235,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         //polyList.push(triangle);
 
         google.maps.event.addListener(triangle, 'click', function (event) {
-            currentPolygon = triangle;
-            //$scope.id = currentPolygon.get("indexID");
+            $scope.currentPolygon = triangle;
+            //$scope.id = $scope.currentPolygon.get("indexID");
         });
 
         triangle.setMap(vm.map);
