@@ -5,7 +5,7 @@
 Регионы
 ===========================================================================================*/
 
-servicesModule.factory('regionSrvc', function(RESTSrvc,settings) {    
+servicesModule.factory('totalQuotaSrvc', function(RESTSrvc,settings) {    
     return {
     	/* Все регионы */
         getAll: function(){
@@ -21,12 +21,12 @@ servicesModule.factory('regionSrvc', function(RESTSrvc,settings) {
 		},
 		/* Удалить регион по ИД */
 		remove: function(id){
-			return RESTSrvc.getPromise({method: 'DELETE', url: settings.server + 'region/' + id});
+			return RESTSrvc.getPromise({method: 'DELETE', url: settings.server + 'delregion/' + id});
 		},
 		/* Получить регион по ИД */
 		get: function(id){
 			return RESTSrvc.getPromise({method: 'GET', url: settings.server + 'region/' + id});
 		}
-
+		
     }
 });

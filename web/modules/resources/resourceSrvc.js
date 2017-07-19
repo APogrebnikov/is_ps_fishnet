@@ -5,19 +5,16 @@
 Регионы
 ===========================================================================================*/
 
-servicesModule.factory('regionSrvc', function(RESTSrvc,settings) {    
+servicesModule.factory('resourceSrvc', function(RESTSrvc,settings) {    
     return {
-    	/* Все регионы */
+    	/* Все ресурсы */
         getAll: function(){
-            return RESTSrvc.getPromise({method: 'GET', url: settings.server + 'regions'});
+            return RESTSrvc.getPromise({method: 'GET', url: settings.server + 'resourcies'});
         },
-        /* Все группы факультета */
-        /* getRegions: function(id){
-            return RESTSrvc.getPromise({method: 'GET', url: DemoSetting.appName + '/json/region/' + id + '/group'});
-        }, */
+        
 		/*Сохранить / создать регион */
 		save: function(region){
-			return RESTSrvc.getPromise({method: 'POST', url: settings.server + 'region/save', data: region});
+			return RESTSrvc.getPromise({method: 'POST', url: settings.server + 'saveres', data: region});
 		},
 		/* Удалить регион по ИД */
 		remove: function(id){

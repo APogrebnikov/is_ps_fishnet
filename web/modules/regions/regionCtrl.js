@@ -206,7 +206,6 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 				code: region.code,
 				name: region.name
 			});
-			alert(triangle.id + triangle.code + triangle.name);
 			
 			triangle.setMap(vm.map);
 
@@ -324,11 +323,14 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         });
 
         //polyList.push(triangle);
-
+		$scope.currentPolygon = triangle;
+		$scope.name=$scope.currentPolygon.name;
+		$scope.code=$scope.currentPolygon.code;
+		$scope.currentPolygon.setOptions({editable:true, draggable:true});
+		
         google.maps.event.addListener(triangle, 'click', function (event) {
-            $scope.currentPolygon = triangle;
-			$scope.name=$scope.currentPolygon.name;
-			$scope.code=$scope.currentPolygon.code;
+            $scope.currentPolygon = this;
+			
             //$scope.id = $scope.currentPolygon.get("id");
         });
 
