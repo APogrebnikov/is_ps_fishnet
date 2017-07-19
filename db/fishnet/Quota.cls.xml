@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 18:14:43">
+<Export generator="Cache" version="25">
 <Class name="fishnet.Quota">
 <Super>%Persistent</Super>
-<TimeChanged>64483,65667.951388</TimeChanged>
 <TimeCreated>64481,59419.500162</TimeCreated>
 
 <Property name="value">
@@ -79,12 +78,17 @@
 			set ^test = quota.value	
 			 set proxyQ = {}
 			 set proxyQ.id = quota.%Id() 
-			 set proxyQ.value = quota.value
-			 
+			 set proxyQ.value = quota.value			 
 			 set proxyQ.startDate = quota.startDate
 			 set proxyQ.endDate = quota.endDate
-			 //set proxyQ.regionResource = quota.regionResource.GetProxy()
-			 set proxyQ.company = quota.company.GetProxy()
+			 if (quota.regionResource'="")
+			  {	
+			  	set ^test = quota.regionResource
+				  set proxyQ.regionResource = quota.regionResource.GetProxy()
+				  }
+			 if (quota.company'="")
+			  {	set ^testTwo = 222
+				  set proxyQ.company = quota.company.GetProxy()}
 			do proxy.%Push(proxyQ)
 		}		
 		&sql(CLOSE QoCur)		
