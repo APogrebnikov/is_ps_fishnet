@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 14:27:17">
 <Class name="fishnet.Coordinate">
 <StorageStrategy/>
 <Super>%SerialObject,%Populate</Super>
+<TimeChanged>64483,47443</TimeChanged>
 <TimeCreated>64479,59415.226035</TimeCreated>
 
 <UDLText name="T">
