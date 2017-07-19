@@ -21,10 +21,11 @@
             <button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
             <button type="button" class="btn btn-warning" ng-click="createPolygon()" ng-if="regionEdit">Создать</button>
             <button type="button" class="btn btn-warning" ng-click="backToRegionList()">Список регионов</button>
+            <button type="button" class="btn btn-success" ng-click="hideBlock()" ng-if="currentPolygon">Добавить ресурсы</button>
         </div>
 
     </div>
-    <div class="row">
+    <div class="row" ng-hide="hidder" class="ng-hide">
         <div class="col-sm-12" style="height:50px">
             <!-- beauty -->
         </div>
@@ -42,6 +43,7 @@
             <button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
             <button type="button" class="btn btn-warning" ng-click="createPolygon()" ng-if="regionEdit">Создать</button>
             <button type="button" class="btn btn-warning" ng-click="backToRegionList()">Список регионов</button>
+
         </div>
 
         <div class="col-sm-12" style="height:50px">
@@ -49,9 +51,4 @@
         </div>
         <div class="col-sm-6">
         </div>
-        
-        <div id="loggedin" style="display:none;">
-            Hello!
-        </div>
-        <button id="button" type="button">Hello!</button>
     </div>

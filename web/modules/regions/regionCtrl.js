@@ -4,33 +4,13 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
     $scope.regionEdit = true;
     $scope.name;
     $scope.code;
+    $scope.hidder = true;
 
-    var hiddencheck = 0;
 
-    $("#button").click(function () {
-        launch();
-    });
-
-    function loginUpdate() {
-        "use strict";
-        $("#loginpending").toggle();
-        $("#loggedin").toggle();
+    $scope.hideBlock = function() {
+        $scope.hidder = !$scope.hidder;
     }
 
-    function launch() {
-        "use strict";
-        var loginpending = $("#loginpending").is(":hidden");
-        var loggedin = $("#loggedin").is(":hidden");
-
-        if (loginpending)
-            hiddencheck = 0;
-        else if (loggedin)
-            hiddencheck = 1
-        else
-            hiddencheck = 0;
-
-        loginUpdate();
-    }
 
 
     $scope.currentPolygon = "";
