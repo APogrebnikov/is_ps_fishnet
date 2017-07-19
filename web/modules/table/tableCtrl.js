@@ -17,7 +17,7 @@ controllersModule.controller('tableController', function ($scope,$location, regi
 	
 	$scope.init = function () {
 		regionSrvc.getAll().then(function (data) {
-			alert(data.data.toSource());
+			//alert(data.data.toSource());
 			for (var i = 0; i < data.data.length; i++) {
 				$scope.regions.push(JSON.parse(data.data[i]));
 				//alert(JSON.parse(data.data.children[i]).coordinates[0]);
