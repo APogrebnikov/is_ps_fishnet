@@ -175,7 +175,9 @@
 <Method name="GetQuotasByCompanyId">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>companyId:%String</FormalSpec>
-<Implementation><![CDATA[  w ##class(fishnet.Quota).GetQuotasByCompanyId(companyId)
+<Implementation><![CDATA[ 
+   w ##class(fishnet.Quota).GetQuotasByCompanyId(companyId)
+   q $$$OK
 ]]></Implementation>
 </Method>
 </Class>
