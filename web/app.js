@@ -14,6 +14,10 @@ mainModule.config(function ($routeProvider) {
     templateUrl: 'modules/regions/region.html',
     controller: 'regionController'
   });
+$routeProvider.when('/company/:companyid', {
+    templateUrl: 'modules/company/company.html',
+    controller: 'companyController'
+  });
 
   
   $routeProvider.when('/resource', {
