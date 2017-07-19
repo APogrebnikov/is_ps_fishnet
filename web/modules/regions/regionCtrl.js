@@ -18,6 +18,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		
 	}
 	
+	$scope.viewResourceTable = function(){
+		
+		
+	}
+	
+	
 	$scope.backToRegionList = function(){
 		$location.path('/').reload();
 		
