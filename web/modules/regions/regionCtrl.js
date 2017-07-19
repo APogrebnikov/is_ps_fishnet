@@ -1,10 +1,14 @@
-controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc,$rootScope, $location) {
+controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc, resourceSrvc, $rootScope, $location) {
     var vm = this;
-    var polyList = [];
+    //var polyList = [];
 	$scope.regionEdit = true;
 	$scope.name;
 	$scope.code;
 	
+	$scope.showResources = false;
+	$scope.currentResource;
+	$scope.resources = [];
+	$scope.resourcesInTable = [];
 	
     $scope.currentPolygon = "";
     $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"
@@ -18,14 +22,31 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		
 	}
 	
-	$scope.viewResourceTable = function(){
-		
-		
+	$scope.addResource = function(){
+		if($scope.currentResource == null){
+			alert("Выберите ресурс из списка");
+			return;
+		}
+		for(var i = 0; i < $scope.resourcesInTable.length; i++){
+			if($scope.resourcesInTable[i].code == $scope.currentResource.code){
+				alert("Попытка добавить в таблицу уже имеющийся ресурс");
+				return;
+			}
+		}
+		$scope.resourcesInTable.push($scope.currentResource);
+	}
+	
+	$scope.removeResource = function(resourceId){
+		$scope.resourcesInTable.splice(resourceId, 1);
+	}
+	
+	$scope.showResourceTable = function(){
+		$scope.showResources = !$scope.showResources;
 	}
 	
 	
 	$scope.backToRegionList = function(){
-		$location.path('/').reload();
+		$location.path('/').replace();
 		
 	}
 	
@@ -103,11 +124,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		
         //triangle.setMap(vm.map);
 		
+		/*
         google.maps.event.addListener(triangle, 'click', function (event) {
           
             //$scope.id = $scope.currentPolygon.get("id");
         });
-
+		*/
         //polyList.push(triangle);
         triangle.setMap(vm.map);
         $rootScope.regionPolygon.push(triangle);
@@ -124,13 +146,25 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		
         if ($routeParams.regionid) {
 			$scope.regionEdit = false;
-            regionSrvc.get(rid).then(
+            
+			regionSrvc.get(rid).then(
                 function (data) {
                     $scope.openPolygonById(data.data);
                 },
                 function (data, status, headers, config) {
-
-                });
+			});
+			
+			resourceSrvc.getAll().then(
+				function(data){
+					
+					for(var i = 0; i < data.data.length; i++){
+						var parsedResource = JSON.parse(data.data[i])
+						$scope.resources.push(parsedResource)
+					}
+				},
+				function (data, status, headers, config) {
+			});
+			
         }
 		else{
 			$scope.regionEdit = true;
@@ -177,7 +211,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			triangle.setMap(vm.map);
 
 			google.maps.event.addListener(triangle, 'click', function (event) {
-				
+				$scope.currentPolygon = this;
 			});
 
 			//polyList.push(triangle);
@@ -233,6 +267,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
             }
 			$scope.currentPolygon.name = $scope.name;
 			$scope.currentPolygon.code = $scope.code;
+			
             var editRegion = JSON.stringify({id: $scope.currentPolygon.id, name: $scope.currentPolygon.name, code: $scope.currentPolygon.code, coordinates: polygonPoints});
 			regionSrvc.save(editRegion);
 			
