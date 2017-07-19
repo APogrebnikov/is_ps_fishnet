@@ -5,8 +5,10 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Название региона</th>
-        <th>Код региона</th>
+        <th>Ресурс</th>
+        <th>Лимит</th>
+		<th>Дата с</th>
+		<th>Дата по</th>
 		<th>Действия</th>
       </tr>
     </thead>
@@ -14,12 +16,13 @@
 		<tr ng-repeat="x in regions">
 			<td>{{ $index + 1 }}</td>
 			<td>{{ x.name }}</td>
-
-			<td>{{ x.code }}</td>
+			<td>{{ x.name }}</td>
+			<td>{{ x.name }}</td>
+			<td>{{ x.name }}</td>
 			<td>
 				<button type="button" class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editRegion(x.id)" title="Редактировать"></button>
 				<button type="button" class="btn btn-danger glyphicon glyphicon-remove" ng-click="removeRegion(x)" title="Удалить"></button>
-				<button type="button" class="btn btn-success glyphicon glyphicon-list-alt" ng-click="" title="Редактировать лимиты"></button>
+				<button type="button" class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteRegion(x.id)" title="Редактировать лимиты"></button>
 			</td>
 		</tr>
     </tbody>

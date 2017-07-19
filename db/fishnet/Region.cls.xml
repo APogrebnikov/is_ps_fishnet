@@ -135,7 +135,7 @@
 ]]></Implementation>
 </Method>
 
-<Method name="DeleteRegion">
+<ClassMethod name="DeleteRegion">
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[	do ##class(fishnet.Region).%DeleteId(id)
