@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 13:08:52">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 14:12:39">
 <Class name="fishnet.Utils">
-<TimeChanged>64483,47075.226468</TimeChanged>
+<TimeChanged>64483,50901.627513</TimeChanged>
 <TimeCreated>64483,43361.763945</TimeCreated>
 
 <Method name="loadResources">
@@ -20,7 +20,7 @@ Work with CSV file (x;y)</Description>
 	    set resource = ##class(fishnet.Resource).%New()
         set str=stream.ReadLine() 
         set resource.code=$piece( str, ";" ,1 ) 
-		set resource.name=$ZCVT($piece( str, ";" ,2 ),"L") 
+		set resource.name=$ZCVT($piece( str, ";" ,2 ),"W") 
 		if (progress) w !, resource.code_"   -  "_resource.name
 		do resource.%Save()
     }
@@ -44,7 +44,7 @@ Work with CSV file (x;y)</Description>
 	    set resource = ##class(fishnet.Region).%New()
         set str=stream.ReadLine() 
         set resource.code=$piece( str, ";" ,1 ) 
-		set resource.name=$ZCVT($piece( str, ";" ,2 ),"L") 
+		set resource.name=$ZCVT($piece( str, ";" ,2 ),"W") 
 		if (progress) w !, resource.code_"   -  "_resource.name
 		do resource.%Save()
     }

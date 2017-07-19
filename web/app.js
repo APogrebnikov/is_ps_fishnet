@@ -5,11 +5,16 @@ var mainModule = angular.module('mainModule', ['servicesModule', 'controllersMod
 
 mainModule.config(function ($routeProvider) {
 
-	$routeProvider.when('/region', {
+	$routeProvider.when('/regionsmap/', {
 		templateUrl: 'modules/regions/region.html',
 		controller: 'regionController'
 	});
-		
+	
+	$routeProvider.when('/region/', {
+		templateUrl: 'modules/regions/region.html',
+		controller: 'regionController'
+  });
+	
   $routeProvider.when('/region/:regionid', {
     templateUrl: 'modules/regions/region.html',
     controller: 'regionController'

@@ -1,32 +1,39 @@
-controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc,$rootScope) {
+controllersModule.controller('regionController', function ($scope, $routeParams, NgMap, regionSrvc,$rootScope, $route) {
     var vm = this;
     var polyList = [];
-	var regionEdit = true;
+	$scope.regionEdit = true;
 	
     $scope.currentPolygon = "";
     $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"
     $scope.id = 0;
     var rid = $routeParams.regionid;
-
+	alert($routeParams.toSource());
+	$scope.clearContentsOfMap = function(){
+		for(var i = 0; i < $rootScope.regionPolygon.length; i++){
+			$rootScope.regionPolygon[i].setMap(null);
+		}
+		
+	}
+	
     NgMap.getMap().then(function (map) {
         vm.map = map;
         if($rootScope.regionPolygon)
-            {
-                $rootScope.regionPolygon.setMap(null);
-            }
+        {
+                $scope.clearContentsOfMap();
+        }
         map.overlayMapTypes.setAt( 0, null);
         $scope.init();
     });
 
     $scope.openPolygonById = function (region) {
         var triangleCoords = [];
-        //alert(region);
+       
         for (var i = 0; i < region.coordinates.length; i++) {
             triangleCoords.push({
                 lat: region.coordinates[i].latitude,
                 lng: region.coordinates[i].longtude
             });
-            //alert(triangleCoords[i]);
+            
         }
 
         var triangle = new google.maps.Polygon({
@@ -37,11 +44,9 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
             fillColor: '#FF0000',
             fillOpacity: 0.35,
             draggable: false,
-            indexID: rid,
-        });
-
-        triangle.addListener('click', function (e) {
-            alert("Hello in Poligon" + this.indexID);
+            indexID: region.id,
+			code: region.code,
+			name: region.name
         });
 
         triangle.setMap(vm.map);
@@ -51,18 +56,21 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
             //$scope.id = currentPolygon.get("indexID");
         });
 
-        polyList.push(triangle);
+        //polyList.push(triangle);
         triangle.setMap(vm.map);
-        $rootScope.regionPolygon=triangle;
+        $rootScope.regionPolygon.push(triangle);
     }
 
     $scope.init = function () {
-        for (var i = 0; i < polyList.length; i++) {
+        /*for (var i = 0; i < polyList.length; i++) {
             polyList[i].setMap(null);
-        }
-
+        }*/
+		if(!$rootScope.regionPolygon){
+			$rootScope.regionPolygon = [];
+		}
+		
         if ($routeParams.regionid) {
-			regionEdit = false;
+			$scope.regionEdit = false;
             regionSrvc.get(rid).then(
                 function (data) {
                     $scope.openPolygonById(data.data);
@@ -72,6 +80,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
                 });
         }
 		else{
+			$scope.regionEdit = true;
 			
 			regionSrvc.getAll().then(
 				function(data){
@@ -84,8 +93,44 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
     }
 	
 	$scope.openAllRegions = function(regions){
+		
 		for(var i = 0; i < regions.length; i++){
+			var triangleCoords = [];
+			region = JSON.parse(regions[i]);
 			
+			for (var j = 0; j < region.coordinates.length; j++) {
+				
+				triangleCoords.push({
+					lat: region.coordinates[j].latitude,
+					lng: region.coordinates[j].longtude
+				});
+			
+			}
+
+			var triangle = new google.maps.Polygon({
+				paths: triangleCoords,
+				strokeColor: '#FF0000',
+				strokeOpacity: 0.8,
+				strokeWeight: 2,
+				fillColor: '#FF0000',
+				fillOpacity: 0.35,
+				draggable: false,
+				indexID: regions[i].id,
+				code: regions[i].code,
+				name: regions[i].name
+			});
+
+			
+			triangle.setMap(vm.map);
+
+			google.maps.event.addListener(triangle, 'click', function (event) {
+				currentPolygon = triangle;
+				//$scope.id = currentPolygon.get("indexID");
+			});
+
+			//polyList.push(triangle);
+			triangle.setMap(vm.map);
+			$rootScope.regionPolygon.push(triangle);
 		}
 	}
 
@@ -133,7 +178,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
                     longtude: xy.lng()
                 });
             }
-            var editRegion = JSON.stringify({id: currentPolygon.indexID, name: "asd", code: "123", coordinates: polygonPoints});
+            var editRegion = JSON.stringify({id: currentPolygon.indexID, name: currentPolygon.name, code: currentPolygon.code, coordinates: polygonPoints});
 			regionSrvc.save(editRegion);
 			
         } else {
@@ -144,10 +189,14 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
 
     $scope.editPolygon = function () {
-        if (isPolygonChosen()) currentPolygon.setOptions({
-            editable: true,
-            draggable: true
-        });
+        if (isPolygonChosen()) {
+			
+				currentPolygon.setOptions({
+					editable: true,
+					draggable: true
+				});
+			alert(currentPolygon.indexID);
+		}
         else alert("No polygons chosen");
     }
 
@@ -181,14 +230,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
             fillColor: '#FF0000',
             fillOpacity: 0.35,
             draggable: false,
-            indexID: polyList.length + 1,
         });
 
-        polyList.push(triangle);
+        //polyList.push(triangle);
 
         google.maps.event.addListener(triangle, 'click', function (event) {
             currentPolygon = triangle;
-            alert("Hello in Poligon" + triangle.paths[0].lat);
             //$scope.id = currentPolygon.get("indexID");
         });
 
