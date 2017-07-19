@@ -48,12 +48,11 @@
 			do proxy.%Push(##class(fishnet.Company).%OpenId(id).CompanyToJSON())
 		}		
 		&sql(CLOSE CoCur)		
-		w proxy.%ToJSON()
 	}
 	catch (ex){
 		set st = ex.AsStatus()
 	}	
-	quit st
+	quit proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
@@ -79,7 +78,6 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
-	quit st
 ]]></Implementation>
 </Method>
 
@@ -103,7 +101,6 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
-	quit st
 ]]></Implementation>
 </Method>
 

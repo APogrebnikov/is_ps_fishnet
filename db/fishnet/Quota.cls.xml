@@ -20,9 +20,12 @@
 <Type>fishnet.RegionResource</Type>
 </Property>
 
-<Property name="company">
-<Type>fishnet.Company</Type>
-</Property>
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship companies As fishnet.Company;
+
+]]></Content>
+</UDLText>
 
 <Method name="SaveQuotas">
 <ClassMethod>1</ClassMethod>
@@ -49,7 +52,6 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
-	quit st
 ]]></Implementation>
 </Method>
 
@@ -97,8 +99,6 @@
 	catch (ex){
 		set st = ex.AsStatus()
 	}
-	
-	quit st
 ]]></Implementation>
 </Method>
 
