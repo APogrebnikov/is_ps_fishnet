@@ -24,9 +24,6 @@
 
 <Property name="limits">
 <Type>fishnet.TotalQuota</Type>
-<Cardinality>one</Cardinality>
-<Inverse>value</Inverse>
-<Relationship>1</Relationship>
 </Property>
 
 <UDLText name="T">
