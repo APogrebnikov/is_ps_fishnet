@@ -202,11 +202,11 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 				fillColor: '#FF0000',
 				fillOpacity: 0.35,
 				draggable: false,
-				id: regions[i].id,
-				code: regions[i].code,
-				name: regions[i].name
+				id: region.id,
+				code: region.code,
+				name: region.name
 			});
-
+			alert(triangle.id + triangle.code + triangle.name);
 			
 			triangle.setMap(vm.map);
 
