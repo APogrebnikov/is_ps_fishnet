@@ -32,7 +32,7 @@
 	
 	try{
 		set proxy = {}
-		set proxy.children = []
+		//set proxy.children = []
 		
 		&sql(DECLARE RgCur CURSOR FOR 
 		 	 SELECT ID
@@ -44,7 +44,7 @@
 			&sql(FETCH RgCur INTO :id) 
 			quit:(SQLCODE '= 0)
 			
-			do proxy.children.%Push(##class(fishnet.Region).%OpenId(id).RegionToJSON())
+			do proxy.%Push(##class(fishnet.Region).%OpenId(id).RegionToJSON())
 		}
 		
 		&sql(CLOSE RgCur)
@@ -68,7 +68,8 @@
 	quit:$$$ISERR(sc) sc	
 	set proxy = {}	
 	set proxy.id = region.id
-	set proxy.name = region.name	
+	set proxy.name = region.name
+	set proxy.code = region.code	
 	set proxy.coordinates = []	
 	for i=1:1:region.coordinates.Count(){
 		set point = {}
@@ -93,6 +94,7 @@
       	if $$$ISERR(st) set region = ##class(fishnet.Region).%New()
       	set region.name = ""
       	set region.coordinates = ""
+      	set region.code = $ZCONVERT(data.code, "I", "UTF8")
       	set region.name = $ZCONVERT(data.name, "I", "UTF8")
       	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")     		
 		$$$THROWONERROR(st, region.%Save())
@@ -109,13 +111,14 @@
 	set region = $this	
 	quit:$$$ISERR(sc) sc	
 	set proxy = {}	
-	set proxy.name = region.name	
+	set proxy.name = region.name
+	set proxy.code = region.code	
 	set proxy.resourcies = []	
 	for i=1:1:region.resourcies.Count(){
 		set res = {}
 		set res.name = region.resourcies.GetAt(i).name
 		set res.code = region.resourcies.GetAt(i).code		
-		do proxy.resourcies.%Push(point)	
+		do proxy.resourcies.%Push(res)	
 	}	
 	quit proxy.%ToJSON()
 ]]></Implementation>
