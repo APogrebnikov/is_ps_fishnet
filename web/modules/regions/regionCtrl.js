@@ -30,7 +30,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
     $scope.openPolygonById = function (region) {
         var triangleCoords = [];
-       
+		$scope.name = region.name;
+		$scope.code = region.code;
         for (var i = 0; i < region.coordinates.length; i++) {
             triangleCoords.push({
                 lat: region.coordinates[i].latitude,
@@ -75,7 +76,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         });
 
         triangle.setMap(vm.map);
-
+		vm.map.setCenter(new google.maps.LatLng(triangleCoords[0].lat, triangleCoords[0].lng));
         google.maps.event.addListener(triangle, 'click', function (event) {
             $scope.currentPolygon = triangle;
 			$scope.name=$scope.currentPolygon.name;
