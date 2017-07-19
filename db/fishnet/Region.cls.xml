@@ -85,9 +85,8 @@
       	if $$$ISERR(st) set region = ##class(fishnet.Region).%New()
       	set region.code = $ZCONVERT(data.code, "I", "UTF8")
       	set region.name = $ZCONVERT(data.name, "I", "UTF8")
-      	set region.coordinates=""
-      	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")     	
-      	set region.coordinates=""	
+      	do region.coordinates.Clear()
+      	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")	
       	for i=1:1:data.coordinates.Count(){
 			set point = ##class(fishnet.Coordinate).%New()
 			set point.longtude = data.coordinates.GetAt(i).longtude
