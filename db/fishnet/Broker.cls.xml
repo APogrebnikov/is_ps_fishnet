@@ -88,7 +88,7 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-  d ##class(fishnet.Company).GetCompanyById(id)
+  w ##class(fishnet.Company).GetCompanyById(id)
   q $$$OK
 ]]></Implementation>
 </Method>
@@ -96,7 +96,7 @@
 <Method name="GetCompanies">
 <ClassMethod>1</ClassMethod>
 <Implementation><![CDATA[
-   d ##class(fishnet.Company).GetCompanies()
+   w ##class(fishnet.Company).GetCompanies()
    q $$$OK
 ]]></Implementation>
 </Method>
@@ -125,7 +125,7 @@
 <Method name="GetResourcies">
 <ClassMethod>1</ClassMethod>
 <Implementation><![CDATA[
-  d ##class(fishnet.Resource).GetResourcies()
+  w ##class(fishnet.Resource).GetResourcies()
   q $$$OK
 ]]></Implementation>
 </Method>
