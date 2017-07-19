@@ -67,7 +67,8 @@
 		set point.latitude = region.coordinates.GetAt(i).latitude		
 		do proxy.coordinates.%Push(point)	
 	}	
-	quit proxy.%ToJSON()
+	w proxy.%ToJSON()
+	q $$$OK
 ]]></Implementation>
 </Method>
 
@@ -82,11 +83,16 @@
 	    set region = ##class(fishnet.Region).%OpenId(data.id,,.st)
       	// If can't open by Id-create new region
       	if $$$ISERR(st) set region = ##class(fishnet.Region).%New()
-      	set region.name = ""
-      	set region.coordinates = ""
       	set region.code = $ZCONVERT(data.code, "I", "UTF8")
       	set region.name = $ZCONVERT(data.name, "I", "UTF8")
-      	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")     		
+      	do region.coordinates.Clear()
+      	set region.coordinates = $ZCONVERT(data.coordinates, "I", "UTF8")	
+      	for i=1:1:data.coordinates.Count(){
+			set point = ##class(fishnet.Coordinate).%New()
+			set point.longtude = data.coordinates.GetAt(i).longtude
+			set point.latitude = data.coordinates.GetAt(i).latitude		
+			do region.coordinates.Insert(point)
+      	}
 		$$$THROWONERROR(st, region.%Save())
 	}
 	catch ex{

@@ -71,8 +71,23 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
                 });
         }
+		else{
+			
+			regionSrvc.getAll().then(
+				function(data){
+					$scope.openAllRegions(data.data)
+				},
+				function (data,status,headers,config){
+					
+				});
+		}
     }
-
+	
+	$scope.openAllRegions = function(regions){
+		for(var i = 0; i < regions.length; i++){
+			
+		}
+	}
 
     $scope.openPolygon = function () {
 
@@ -118,7 +133,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
                     longtude: xy.lng()
                 });
             }
-            var editRegion = JSON.stringify({name: "asd", code: "123", coordinates: polygonPoints});
+            var editRegion = JSON.stringify({id: currentPolygon.indexID, name: "asd", code: "123", coordinates: polygonPoints});
 			regionSrvc.save(editRegion);
 			
         } else {

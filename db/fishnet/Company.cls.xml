@@ -37,8 +37,7 @@
 	
 	set st = $$$OK	
 	try{
-		set proxy = {}
-		set proxy.children = []		
+		set proxy = []		
 		&sql(DECLARE CoCur CURSOR FOR 
 		 	 SELECT ID
 		 	 FROM fishnet.Company)	
@@ -49,7 +48,7 @@
 			&sql(FETCH CoCur INTO :id) 
 			quit:(SQLCODE '= 0)
 			
-			do proxy.children.%Push(##class(fishnet.Company).%OpenId(id).CompanyToJSON())
+			do proxy.%Push(##class(fishnet.Company).%OpenId(id).CompanyToJSON())
 		}		
 		&sql(CLOSE CoCur)		
 		w proxy.%ToJSON()

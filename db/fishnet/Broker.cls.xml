@@ -20,7 +20,6 @@
 <Route Url="/region/:id" Method="GET" Call="GetRegion"/>
 <Route Url="/regions" Method="GET" Call="GetRegions"/>
 <Route Url="/region/save" Method="POST" Call="SaveRegion"/>
-<Route Url="/region/addreg" Method="POST" Call="AddRegion" />
 
 <!-- _***********Компании*************** -->
 <Route Url="/company/:id" Method="GET" Call="GetCompany" />
@@ -68,14 +67,12 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%String</ReturnType>
 <Implementation><![CDATA[
-  d ##class(fishnet.Region).SaveNewRegion(id)
-  q $$$OK
+  q ##class(fishnet.Region).SaveRegion()
 ]]></Implementation>
 </Method>
 
 <Method name="GetRegions">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[  q ##class(fishnet.Region).GetRegions()
 ]]></Implementation>
@@ -91,7 +88,7 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-  d ##class(fishnet.Company).GetCompanyById(id)
+  w ##class(fishnet.Company).GetCompanyById(id)
   q $$$OK
 ]]></Implementation>
 </Method>
@@ -99,7 +96,7 @@
 <Method name="GetCompanies">
 <ClassMethod>1</ClassMethod>
 <Implementation><![CDATA[
-   d ##class(fishnet.Company).GetCompanies()
+   w ##class(fishnet.Company).GetCompanies()
    q $$$OK
 ]]></Implementation>
 </Method>
@@ -128,7 +125,7 @@
 <Method name="GetResourcies">
 <ClassMethod>1</ClassMethod>
 <Implementation><![CDATA[
-  d ##class(fishnet.Resource).GetResourcies()
+  w ##class(fishnet.Resource).GetResourcies()
   q $$$OK
 ]]></Implementation>
 </Method>

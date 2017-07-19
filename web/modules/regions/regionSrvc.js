@@ -17,7 +17,7 @@ servicesModule.factory('regionSrvc', function(RESTSrvc,settings) {
         }, */
 		/*Сохранить / создать регион */
 		save: function(region){
-			return RESTSrvc.getPromise({method: 'POST', url: settings.server + 'region', data: region});
+			return RESTSrvc.getPromise({method: 'POST', url: settings.server + 'region/save', data: region});
 		},
 		/* Удалить регион по ИД */
 		remove: function(id){
