@@ -4,21 +4,54 @@
 <Super>%Persistent</Super>
 <TimeCreated>64481,59419.500162</TimeCreated>
 
-<Property name="name">
-<Type>%String</Type>
+<Property name="value">
+<Type>%Float</Type>
 </Property>
 
-<Property name="region">
-<Type>fishnet.Region</Type>
+<Property name="startDate">
+<Type>%Date</Type>
+</Property>
+
+<Property name="endDate">
+<Type>%Date</Type>
+</Property>
+
+<Property name="regionResource">
+<Type>fishnet.RegionResource</Type>
 </Property>
 
 <Property name="company">
 <Type>fishnet.Company</Type>
 </Property>
 
-<Property name="resource">
-<Type>fishnet.Resource</Type>
-</Property>
+<Method name="SaveQuotas">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	set st = $$$OK		
+	try{		
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))  		
+	    // Open object by Id
+	    set quota = ##class(fishnet.Quota).%OpenId(data.id,,.st)
+      	// If can't open by Id-create new region
+      	if $$$ISERR(st) set quota = ##class(fishnet.Quota).%New()
+      	set quota.code = $ZCONVERT(data.code, "I", "UTF8")
+      	set quota.name = $ZCONVERT(data.name, "I", "UTF8")
+      	do quota.regionResource.Clear()
+      	set quota.regionResource = $ZCONVERT(data.regionResource, "I", "UTF8")	
+      	do quota.regionResource.Clear()
+      	set quota.company = $ZCONVERT(data.company, "I", "UTF8")
+      	do quota.startDate.Clear()
+      	set quota.startDate = $ZCONVERT(data.startDate, "I", "UTF8")
+      	do quota.endDate.Clear()
+      	set quota.endDate = $ZCONVERT(data.endDate, "I", "UTF8")   	
+		$$$THROWONERROR(st, quota.%Save())
+	}
+	catch ex{
+		s st=st.AsStatus()
+	}
+	quit st
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -42,6 +75,18 @@
 </Value>
 <Value name="5">
 <Value>resource</Value>
+</Value>
+<Value name="6">
+<Value>value</Value>
+</Value>
+<Value name="7">
+<Value>startDate</Value>
+</Value>
+<Value name="8">
+<Value>endDate</Value>
+</Value>
+<Value name="9">
+<Value>regionResource</Value>
 </Value>
 </Data>
 </Storage>
