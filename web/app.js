@@ -19,17 +19,25 @@ mainModule.config(function ($routeProvider) {
     templateUrl: 'modules/regions/region.html',
     controller: 'regionController'
   });
+$routeProvider.when('/company/:companyid', {
+    templateUrl: 'modules/company/company.html',
+    controller: 'companyController'
+  });
 
   
   $routeProvider.when('/resource', {
     templateUrl: 'modules/resources/resource.html',
     controller: 'resourceController'
   });
-  $routeProvider.when('/table', {
+  $routeProvider.when('/regionslist', {
     templateUrl: 'modules/table/table.html',
     controller: 'tableController'
   });
+  $routeProvider.when('/companieslist', {
+    templateUrl: 'modules/table/tableCompany.html',
+    controller: 'tableCompanyController'
+  });
   $routeProvider.otherwise({
-    redirectTo: '/table'
+    redirectTo: '/regionslist'
   })
 });
