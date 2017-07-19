@@ -118,7 +118,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
                     longtude: xy.lng()
                 });
             }
-            var editRegion = JSON.stringify({id:1,name: "asd", code: "123", coordinates: polygonPoints});
+            var editRegion = JSON.stringify({id: currentPolygon.indexID, name: "asd", code: "123", coordinates: polygonPoints});
 			regionSrvc.save(editRegion);
 			
         } else {
