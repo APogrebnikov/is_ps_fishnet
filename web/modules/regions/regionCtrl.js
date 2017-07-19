@@ -38,7 +38,29 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
             });
             
         }
+		if(triangleCoords.length <= 0){
+			var mapCenterCoords = vm.map.getCenter();
+			var lat = mapCenterCoords.lat();
+			var lng = mapCenterCoords.lng();
+			var mapZoom = vm.map.getZoom();
+			var scaling = 5 / mapZoom;
 
+
+			var triangleCoords = [{
+					lat: lat + scaling,
+					lng: lng
+				},
+				{
+					lat: lat - scaling,
+					lng: lng + scaling
+				},
+				{
+					lat: lat - scaling,
+					lng: lng - scaling
+				}
+			];
+			
+		}
         var triangle = new google.maps.Polygon({
             paths: triangleCoords,
             strokeColor: '#FF0000',
@@ -56,6 +78,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
         google.maps.event.addListener(triangle, 'click', function (event) {
             $scope.currentPolygon = triangle;
+			$scope.name=$scope.currentPolygon.name;
+			$scope.code=$scope.currentPolygon.code;
             //$scope.id = $scope.currentPolygon.get("id");
         });
 
@@ -128,7 +152,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
 			google.maps.event.addListener(triangle, 'click', function (event) {
 				$scope.currentPolygon = triangle;
-				//$scope.id = $scope.currentPolygon.get("id");
+				$scope.name=$scope.currentPolygon.name;
+				$scope.code=$scope.currentPolygon.code;
 			});
 
 			//polyList.push(triangle);
