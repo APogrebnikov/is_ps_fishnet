@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:59:03">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 18:07:13">
 <Class name="fishnet.Resource">
 <Super>%Persistent</Super>
-<TimeChanged>64483,62115</TimeChanged>
+<TimeChanged>64483,65208.688426</TimeChanged>
 <TimeCreated>64481,59379.543987</TimeCreated>
 
 <Property name="code">
@@ -12,6 +12,13 @@
 <Property name="name">
 <Type>%String</Type>
 <Parameter name="MAXLEN"/>
+</Property>
+
+<Property name="regions">
+<Type>fishnet.RegionResource</Type>
+<Cardinality>many</Cardinality>
+<Inverse>resource</Inverse>
+<Relationship>1</Relationship>
 </Property>
 
 <Method name="GetResourcies">
@@ -105,6 +112,9 @@
 </Value>
 <Value name="3">
 <Value>code</Value>
+</Value>
+<Value name="4">
+<Value>regions</Value>
 </Value>
 </Data>
 </Storage>

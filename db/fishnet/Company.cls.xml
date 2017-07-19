@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:48:42">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 18:13:47">
 <Class name="fishnet.Company">
 <Super>%Persistent</Super>
-<TimeChanged>64483,62115</TimeChanged>
+<TimeChanged>64483,65612.551786</TimeChanged>
 <TimeCreated>64481,59280.79863</TimeCreated>
 
 <Property name="name">
@@ -123,6 +123,18 @@
  // ... for other property
  
  quit proxy.%ToJSON()
+]]></Implementation>
+</Method>
+
+<Method name="GetProxy">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set proxy = {}
+ set proxy.id = ..%Id() 
+ set proxy.name = ..name
+ set proxy.code = ..code
+ 
+ quit proxy
 ]]></Implementation>
 </Method>
 
