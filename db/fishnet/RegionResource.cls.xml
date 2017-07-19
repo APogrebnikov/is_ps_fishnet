@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< .mine
 <Export generator="Cache" version="25">
+=======
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 18:15:22">
+>>>>>>> .theirs
 <Class name="fishnet.RegionResource">
 <Super>%Persistent</Super>
 <TimeCreated>64482,57980.141608</TimeCreated>
