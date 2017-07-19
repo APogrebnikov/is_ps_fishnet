@@ -10,10 +10,16 @@ controllersModule.controller('tableController', function ($scope,$location, regi
 
 
 	}
+	
+	$scope.addRegion = function (){
+		$location.path('/region/').replace()
+	}
+	
 	$scope.init = function () {
 		regionSrvc.getAll().then(function (data) {
-			for (var i = 0; i < data.data.children.length; i++) {
-				$scope.regions.push(JSON.parse(data.data.children[i]));
+			alert(data.data.toSource());
+			for (var i = 0; i < data.data.length; i++) {
+				$scope.regions.push(JSON.parse(data.data[i]));
 				//alert(JSON.parse(data.data.children[i]).coordinates[0]);
 			}
 			//$scope.regions = data.data.children
