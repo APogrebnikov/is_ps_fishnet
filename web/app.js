@@ -6,9 +6,9 @@ var mainModule = angular.module('mainModule', ['servicesModule', 'controllersMod
 mainModule.config(function ($routeProvider) {
 
 	$routeProvider.when('/region', {
-    templateUrl: 'modules/regions/region.html',
-    controller: 'regionController'
-  });
+		templateUrl: 'modules/regions/region.html',
+		controller: 'regionController'
+	});
 		
   $routeProvider.when('/region/:regionid', {
     templateUrl: 'modules/regions/region.html',
