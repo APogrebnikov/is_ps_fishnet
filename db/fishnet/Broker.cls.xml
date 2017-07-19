@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:17:31">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:41:30">
 <Class name="fishnet.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>64483,62238.646044</TimeChanged>
+<TimeChanged>64483,63643.066816</TimeChanged>
 <TimeCreated>64481,38930.754632</TimeCreated>
 
 <Parameter name="HandleCorsRequest">
@@ -31,6 +31,11 @@
 <!--*************Ресурсы****************** -->
 <Route Url="/resourcies" Method="GET" Call="GetResourcies"/>
 <Route Url="/saveres" Method="POST" Call="SaveResource"/>
+
+<!-- ***************Квоты******************-->
+<Route Url="/quota/save" Method="POST" Call="SaveQuota"/>
+<Route Url="/quota/company/:id" Method="GET" Call="GetQuotasByCompanyId"/>
+
 
 
 </Routes>
@@ -151,6 +156,26 @@
 <Implementation><![CDATA[
   d ##class(fishnet.Resource).SaveResource()
   q $$$OK
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/*----------------------------Квоты-------------------------------*/
+]]></Content>
+</UDLText>
+
+<Method name="SaveQuota">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+  d ##class(fishnet.Quota).SaveQuotas()
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetQuotasByCompanyId">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>companyId:%String</FormalSpec>
+<Implementation><![CDATA[  w ##class(fishnet.Quota).GetQuotasByCompanyId(companyId)
 ]]></Implementation>
 </Method>
 </Class>
