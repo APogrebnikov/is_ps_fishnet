@@ -131,6 +131,15 @@
 ]]></Implementation>
 </Method>
 
+<Method name="DeleteRegion">
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(fishnet.Region).%DeleteId(id)
+	q $$$OK
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^fishnet.RegionD</DataLocation>
