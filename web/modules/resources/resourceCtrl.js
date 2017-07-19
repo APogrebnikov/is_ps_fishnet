@@ -17,13 +17,11 @@ controllersModule.controller('resourceController', function ($scope, resourceSrv
 	$scope.init = function () {
 		resourceSrvc.getAll().then(function (data) {
 			
-			var resourceJSONString = data.data.substring(0, data.data.length-1);
-			var resourcesData = JSON.parse(resourceJSONString);
+			var resourcesData = data.data;
 			
 				
-			for (var i = 0; i < resourcesData.children.length; i++) {
-				$scope.resources.push(JSON.parse(resourcesData.children[i]));
-
+			for (var i = 0; i < resourcesData.length; i++) {
+				$scope.resources.push(JSON.parse(resourcesData[i]));
 			}
 			
 		}, function (data, status, headers, config) {

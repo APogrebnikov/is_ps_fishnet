@@ -6,8 +6,11 @@ controllersModule.controller('tableController', function ($scope,$location, regi
 		$location.path('/region/'+id).replace();
 	}
 
-	$scope.removeRegion = function (id) {
-
+	$scope.removeRegion = function (item) {
+		$scope.regions.splice($scope.regions.indexOf(item),1);
+		regionSrvc.remove(item.id);
+		
+		//$location.path('/regionlist').replace()
 
 	}
 	
