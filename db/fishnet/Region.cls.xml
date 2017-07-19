@@ -26,9 +26,7 @@
 	set st = $$$OK
 	
 	try{
-		set proxy = []
-		//set proxy.children = []
-		
+		set proxy = []		
 		&sql(DECLARE RgCur CURSOR FOR 
 		 	 SELECT ID
 		 	 FROM fishnet.Region)	
@@ -37,13 +35,10 @@
 		for  
 		{	
 			&sql(FETCH RgCur INTO :id) 
-			quit:(SQLCODE '= 0)
-			
+			quit:(SQLCODE '= 0)			
 			do proxy.%Push(##class(fishnet.Region).%OpenId(id).RegionToJSON())
-		}
-		
-		&sql(CLOSE RgCur)
-		
+		}		
+		&sql(CLOSE RgCur)		
 		w proxy.%ToJSON()
 	}
 	catch (ex){
@@ -106,6 +101,7 @@
 <Implementation><![CDATA[
  set region = $this
  set proxy = {}
+ set proxy.id = region.%Id()
  set proxy.name = region.name
  set proxy.coordinates = []
  for i=1:1:region.coordinates.Count(){
