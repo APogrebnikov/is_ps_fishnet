@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 23:19:04">
 <Class name="fishnet.TotalQuota">
 <Super>%Persistent</Super>
+<TimeChanged>64483,83933.351904</TimeChanged>
 <TimeCreated>64483,42406.92903</TimeCreated>
 
 <Property name="value">
@@ -18,7 +19,14 @@
 
 <Property name="regionResource">
 <Type>fishnet.RegionResource</Type>
+<Cardinality>one</Cardinality>
+<Inverse>limits</Inverse>
+<Relationship>1</Relationship>
 </Property>
+
+<Index name="regionResourceIndex">
+<Properties>regionResource</Properties>
+</Index>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
