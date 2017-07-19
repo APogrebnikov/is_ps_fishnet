@@ -12,11 +12,6 @@
 <Type>%String</Type>
 </Property>
 
-<Property name="region">
-<Type>fishnet.Region</Type>
-<Collection>list</Collection>
-</Property>
-
 <Method name="GetCompanyById">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>id:%String</FormalSpec>
@@ -24,6 +19,7 @@
 	set company = ##class(fishnet.Company).%OpenId(id,,.sc)
 	quit:$$$ISERR(sc) sc
 	set proxy = {}
+	set proxy.id = company.%Id()
 	set proxy.name = company.name
 	set proxy.code = company.code
 	quit proxy.%ToJSON()
@@ -96,6 +92,7 @@
       	set company = ##class(fishnet.Company).%OpenId(data.id,,.st)    	
       	// If can't open-create new
       	if $$$ISERR(st) set company = ##class(fishnet.Company).%New()
+      	do company.region.Clear()
       	set company.region = $ZCONVERT(data.region, "I", "UTF8")
       	
       	// ... for other property
@@ -114,6 +111,7 @@
 <Implementation><![CDATA[
  set company = $this
  set proxy = {}
+ set proxy.id = company.%Id() 
  set proxy.name = company.name
  set proxy.code = company.code
  

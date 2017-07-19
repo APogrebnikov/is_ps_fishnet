@@ -22,9 +22,7 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	
 	set st = $$$OK
-	
 	try{
 		set proxy = []		
 		&sql(DECLARE RgCur CURSOR FOR 
@@ -130,6 +128,15 @@
  	do ..coordinates.Insert(coord)
  	do ..%Save()
  	q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="DeleteRegion">
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(fishnet.Region).%DeleteId(id)
+	q $$$OK
 ]]></Implementation>
 </Method>
 
