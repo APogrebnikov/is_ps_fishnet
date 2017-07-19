@@ -13,11 +13,11 @@
                 <label for="usr">Id:</label>
                 <input type="text" ng-model="id" class="form-control" id="usr"></input>
             </div>
-            <button type="button" class="btn btn-default" ng-click="openPolygon()">Открыть</button>
+            <button type="button" class="btn btn-default" ng-click="openPolygon()" ng-if="regionEdit">Открыть</button>
             <button type="button" class="btn btn-primary" ng-click="savePolygon()">Сохранить</button>
-            <button type="button" class="btn btn-success" ng-click="deletePolygon()">Удалить</button>
+            <button type="button" class="btn btn-success" ng-click="deletePolygon()" ng-if="regionEdit">Удалить</button>
             <button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
-            <button type="button" class="btn btn-warning" ng-click="createPolygon()">Создать</button>
+            <button type="button" class="btn btn-warning" ng-click="createPolygon()" ng-if="regionEdit">Создать</button>
         </div>
 
     </div>
