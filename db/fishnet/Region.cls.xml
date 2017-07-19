@@ -22,9 +22,7 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	
 	set st = $$$OK
-	
 	try{
 		set proxy = []		
 		&sql(DECLARE RgCur CURSOR FOR 
