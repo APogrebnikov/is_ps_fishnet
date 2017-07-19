@@ -1,30 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:49:13">
 <Class name="fishnet.RegionResource">
 <Super>%Persistent</Super>
+<TimeChanged>64483,64013.591583</TimeChanged>
 <TimeCreated>64482,57980.141608</TimeCreated>
 
-<Property name="quotaId">
-<Type>%Numeric</Type>
-</Property>
-
-<Property name="regions">
+<Property name="region">
 <Type>fishnet.Region</Type>
 <Cardinality>one</Cardinality>
-<Inverse>name</Inverse>
+<Inverse>resources</Inverse>
 <Relationship>1</Relationship>
 </Property>
 
-<Property name="resourcies">
+<Index name="regionIndex">
+<Properties>region</Properties>
+</Index>
+
+<Property name="resource">
 <Type>fishnet.Resource</Type>
 <Cardinality>one</Cardinality>
-<Inverse>name</Inverse>
+<Inverse>regions</Inverse>
 <Relationship>1</Relationship>
 </Property>
+
+<Index name="resourceIndex">
+<Properties>resource</Properties>
+</Index>
 
 <Property name="limits">
 <Type>fishnet.TotalQuota</Type>
 </Property>
+
+<Method name="GetProxy">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set proxy = {}
+ set proxy.id = ..%Id()
+ 
+ set proxy.region={}
+ set proxy.region.id = ..region.%Id()
+ set proxy.region.name = ..region.name
+ set proxy.region.code = ..region.code
+ 
+ set proxy.resource={}
+ set proxy.resource.id = ..resource.%Id()
+ set proxy.resource.name = ..resource.name
+ set proxy.resource.code = ..resource.code
+ quit proxy
+]]></Implementation>
+</Method>
 
 <UDLText name="T">
 <Content><![CDATA[
@@ -77,6 +101,15 @@
 </Value>
 <Value name="8">
 <Value>limits</Value>
+</Value>
+<Value name="9">
+<Value>resources</Value>
+</Value>
+<Value name="10">
+<Value>region</Value>
+</Value>
+<Value name="11">
+<Value>resource</Value>
 </Value>
 </Data>
 </Storage>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 14:49:48">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:49:20">
 <Class name="fishnet.Resource">
 <Super>%Persistent</Super>
-<TimeChanged>64483,53379.911184</TimeChanged>
+<TimeChanged>64483,62115</TimeChanged>
 <TimeCreated>64481,59379.543987</TimeCreated>
 
 <Property name="code">
@@ -64,6 +64,14 @@
 	catch ex{
 		s st=st.AsStatus()
 	}
+]]></Implementation>
+</Method>
+
+<Method name="DeleteResource">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[	 do ##class(fishnet.Resource).%DeleteId(id)
 ]]></Implementation>
 </Method>
 

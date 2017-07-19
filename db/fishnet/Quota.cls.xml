@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:48:56">
 <Class name="fishnet.Quota">
 <Super>%Persistent</Super>
+<TimeChanged>64483,62115</TimeChanged>
 <TimeCreated>64481,59419.500162</TimeCreated>
 
 <Property name="value">
@@ -20,12 +21,12 @@
 <Type>fishnet.RegionResource</Type>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship companies As fishnet.Company;
-
-]]></Content>
-</UDLText>
+<Property name="company">
+<Type>fishnet.Company</Type>
+<Cardinality>one</Cardinality>
+<Inverse>quotas</Inverse>
+<Relationship>1</Relationship>
+</Property>
 
 <Method name="SaveQuotas">
 <ClassMethod>1</ClassMethod>
@@ -37,8 +38,7 @@
 	    set quota = ##class(fishnet.Quota).%OpenId(data.id,,.st)
       	// If can't open by Id-create new region
       	if $$$ISERR(st) set quota = ##class(fishnet.Quota).%New()
-      	set quota.code = $ZCONVERT(data.code, "I", "UTF8")
-      	set quota.name = $ZCONVERT(data.name, "I", "UTF8")
+      	set quota.value = $ZCONVERT(data.value, "I", "UTF8")
       	do quota.regionResource.Clear()
       	set quota.regionResource = $ZCONVERT(data.regionResource, "I", "UTF8")	
       	do quota.regionResource.Clear()
@@ -61,44 +61,59 @@
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	
-	/*set st = $$$OK	
+	set st = $$$OK	
 	try{
 		set proxy = []		
-		&sql(DECLARE CoCur CURSOR FOR 
-		 	 SELECT ID
-		 	 FROM fishnet.Qo
-		 	 WHERE )	
+		&sql(DECLARE QoCur CURSOR FOR 
+		 	 SELECT ID 
+ 			 FROM fishnet.Quota 
+ 			 WHERE company = :companyId
+ 			 ORDER BY company )	
 		
-		&sql(OPEN CoCur)
+		&sql(OPEN QoCur)
 		for  
 		{	
 			&sql(FETCH QoCur INTO :id) 
 			quit:(SQLCODE '= 0)
-			
-			do proxy.%Push(##class(fishnet.Quota).%OpenId(id).CompanyToJSON())
+			set quota = ##class(fishnet.Quota).%OpenId(id)
+			set ^test = quota.value	
+			 set proxyQ = {}
+			 set proxyQ.id = quota.%Id() 
+			 set proxyQ.value = quota.value
+			 
+			 set proxyQ.startDate = quota.startDate
+			 set proxyQ.endDate = quota.endDate
+			 set proxyQ.regionResource = quota.regionResource
+			 set proxyQ.company = quota.company
+			 w proxyQ.%ToJSON()
+			do proxy.%Push(proxyQ)
 		}		
-		&sql(CLOSE CoCur)		
-		w proxy.%ToJSON()
+		&sql(CLOSE QoCur)		
 	}
 	catch (ex){
 		set st = ex.AsStatus()
 	}	
-	quit st*/
-	
-	set st = $$$OK
-	
-	try{
-		set sql = "SELECT * "_
- 				  "FROM fishnet.Quota "_
- 				  "WHERE company = "_companyId_" "_
- 				  "ORDER BY company"
- 		 
- 		// Вывод данных в формате JSON для произвольного sql запроса	
-		do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,sql)
-	}
-	catch (ex){
-		set st = ex.AsStatus()
-	}
+	w proxy.%ToJSON()
+	q st
+]]></Implementation>
+</Method>
+
+<Method name="QuotaToJSON">
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set ^test = ..value_" hello"
+ set proxy = {}
+ //set proxy.id = quota.%Id() 
+ set proxy.value = ..value
+ 
+ set proxy.startDate = ..startDate
+ set proxy.endDate = ..endDate
+ set proxy.regionResource = ..regionResource
+ set proxy.company = ..company
+ 
+ // ... for other property
+ 
+ quit proxy
 ]]></Implementation>
 </Method>
 
