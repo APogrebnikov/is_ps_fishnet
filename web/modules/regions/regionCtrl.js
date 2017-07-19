@@ -30,7 +30,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
     $scope.openPolygonById = function (region) {
         var triangleCoords = [];
-       
+		$scope.name = region.name;
+		$scope.code = region.code;
         for (var i = 0; i < region.coordinates.length; i++) {
             triangleCoords.push({
                 lat: region.coordinates[i].latitude,
@@ -38,7 +39,29 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
             });
             
         }
+		if(triangleCoords.length <= 0){
+			var mapCenterCoords = vm.map.getCenter();
+			var lat = mapCenterCoords.lat();
+			var lng = mapCenterCoords.lng();
+			var mapZoom = vm.map.getZoom();
+			var scaling = 5 / mapZoom;
 
+
+			var triangleCoords = [{
+					lat: lat + scaling,
+					lng: lng
+				},
+				{
+					lat: lat - scaling,
+					lng: lng + scaling
+				},
+				{
+					lat: lat - scaling,
+					lng: lng - scaling
+				}
+			];
+			
+		}
         var triangle = new google.maps.Polygon({
             paths: triangleCoords,
             strokeColor: '#FF0000',
@@ -53,9 +76,11 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         });
 
         triangle.setMap(vm.map);
-
+		vm.map.setCenter(new google.maps.LatLng(triangleCoords[0].lat, triangleCoords[0].lng));
         google.maps.event.addListener(triangle, 'click', function (event) {
             $scope.currentPolygon = triangle;
+			$scope.name=$scope.currentPolygon.name;
+			$scope.code=$scope.currentPolygon.code;
             //$scope.id = $scope.currentPolygon.get("id");
         });
 
@@ -128,7 +153,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
 			google.maps.event.addListener(triangle, 'click', function (event) {
 				$scope.currentPolygon = triangle;
-				//$scope.id = $scope.currentPolygon.get("id");
+				$scope.name=$scope.currentPolygon.name;
+				$scope.code=$scope.currentPolygon.code;
 			});
 
 			//polyList.push(triangle);
@@ -182,6 +208,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
                     longtude: xy.lng()
                 });
             }
+			$scope.currentPolygon.name = $scope.name;
+			$scope.currentPolygon.code = $scope.code;
             var editRegion = JSON.stringify({id: $scope.currentPolygon.id, name: $scope.currentPolygon.name, code: $scope.currentPolygon.code, coordinates: polygonPoints});
 			regionSrvc.save(editRegion);
 			
@@ -194,13 +222,13 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
     $scope.editPolygon = function () {
         if (isPolygonChosen()) {
-			
 				$scope.currentPolygon.setOptions({
 					editable: true,
 					draggable: true
 				});
-				
-			alert($scope.currentPolygon.id);
+			$scope.name = $scope.currentPolygon.name;
+			$scope.code = $scope.currentPolygon.code;
+			alert($scope.currentPolygon.id + " " + $scope.currentPolygon.name + " " + $scope.currentPolygon.code);
 		}
         else alert("No polygons chosen");
     }
