@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:01:42">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 17:17:31">
 <Class name="fishnet.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>64483,61254.657897</TimeChanged>
+<TimeChanged>64483,62238.646044</TimeChanged>
 <TimeCreated>64481,38930.754632</TimeCreated>
 
 <Parameter name="HandleCorsRequest">
@@ -20,7 +20,7 @@
 <Route Url="/region/:id" Method="GET" Call="GetRegion"/>
 <Route Url="/regions" Method="GET" Call="GetRegions"/>
 <Route Url="/region/save" Method="POST" Call="SaveRegion"/>
-<Route Url="/delregion/:id" Method="DELETE" Call="DeleteRegion"/>
+<Route Url="/region/:id" Method="DELETE" Call="DeleteRegion"/>
 
 <!-- _***********Компании*************** -->
 <Route Url="/company/:id" Method="GET" Call="GetCompany" />
@@ -70,7 +70,7 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%String</ReturnType>
 <Implementation><![CDATA[
-  w ##class(fishnet.Region).SaveRegion()
+  d ##class(fishnet.Region).SaveRegion()
   q $$$OK
 ]]></Implementation>
 </Method>
@@ -89,7 +89,7 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-  d ##class(fishnet.Region).DeleteRegion()
+  d ##class(fishnet.Region).DeleteRegion(id)
   q $$$OK
 ]]></Implementation>
 </Method>
