@@ -207,6 +207,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
                     longtude: xy.lng()
                 });
             }
+			$scope.currentPolygon.name = $scope.name;
+			$scope.currentPolygon.code = $scope.code;
             var editRegion = JSON.stringify({id: $scope.currentPolygon.id, name: $scope.currentPolygon.name, code: $scope.currentPolygon.code, coordinates: polygonPoints});
 			regionSrvc.save(editRegion);
 			
@@ -219,13 +221,13 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
     $scope.editPolygon = function () {
         if (isPolygonChosen()) {
-			
 				$scope.currentPolygon.setOptions({
 					editable: true,
 					draggable: true
 				});
-				
-			alert($scope.currentPolygon.id);
+			$scope.name = $scope.currentPolygon.name;
+			$scope.code = $scope.currentPolygon.code;
+			alert($scope.currentPolygon.id + " " + $scope.currentPolygon.name + " " + $scope.currentPolygon.code);
 		}
         else alert("No polygons chosen");
     }
