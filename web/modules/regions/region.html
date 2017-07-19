@@ -12,16 +12,46 @@
             <div class="form-group">
                 <label for="usr">Name:</label>
                 <input type="text" ng-model="name" class="form-control" id="usr"></input>
-				<label for="usr">Code:</label>
-				<input type="text" ng-model="code" class="form-control" id="usr"></input>
+                <label for="usr">Code:</label>
+                <input type="text" ng-model="code" class="form-control" id="usr"></input>
             </div>
             <button type="button" class="btn btn-default" ng-click="openPolygon()" ng-if="regionEdit">Открыть</button>
             <button type="button" class="btn btn-primary" ng-click="savePolygon()">Сохранить</button>
             <button type="button" class="btn btn-success" ng-click="deletePolygon()" ng-if="regionEdit">Удалить</button>
             <button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
             <button type="button" class="btn btn-warning" ng-click="createPolygon()" ng-if="regionEdit">Создать</button>
-			<button type="button" class="btn btn-warning" ng-click="backToRegionList()">Список регионов</button>
+            <button type="button" class="btn btn-warning" ng-click="backToRegionList()">Список регионов</button>
         </div>
 
     </div>
-</div>
+    <div class="row">
+        <div class="col-sm-12" style="height:50px">
+            <!-- beauty -->
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="usr">Name:</label>
+                <input type="text" ng-model="name" class="form-control" id="usr"></input>
+                <label for="usr">Code:</label>
+                <input type="text" ng-model="code" class="form-control" id="usr"></input>
+            </div>
+            <button type="button" class="btn btn-default" ng-click="openPolygon()" ng-if="regionEdit">Открыть</button>
+            <button type="button" class="btn btn-primary" ng-click="savePolygon()">Сохранить</button>
+            <button type="button" class="btn btn-success" ng-click="deletePolygon()" ng-if="regionEdit">Удалить</button>
+            <button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
+            <button type="button" class="btn btn-warning" ng-click="createPolygon()" ng-if="regionEdit">Создать</button>
+            <button type="button" class="btn btn-warning" ng-click="backToRegionList()">Список регионов</button>
+        </div>
+
+        <div class="col-sm-12" style="height:50px">
+            <!-- beauty -->
+        </div>
+        <div class="col-sm-6">
+        </div>
+        
+        <div id="loggedin" style="display:none;">
+            Hello!
+        </div>
+        <button id="button" type="button">Hello!</button>
+    </div>
