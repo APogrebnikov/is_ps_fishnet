@@ -14,7 +14,7 @@
 		<tr ng-repeat="x in regions">
 			<td>{{ $index + 1 }}</td>
 			<td>{{ x.name }}</td>
-			<td>{{ x.name }}</td>
+			<td>{{ x.code }}</td>
 			<td>
 				<button type="button" class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editRegion(x.id)" title="Редактировать"></button>
 				<button type="button" class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteRegion(x.id)" title="Удалить"></button>

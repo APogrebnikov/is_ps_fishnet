@@ -32,12 +32,18 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
         var triangleCoords = [];
 		$scope.name = region.name;
 		$scope.code = region.code;
+		var summx = 0;
+		var summy = 0;
+		var x = region.coordinates.length;
+		var y = region.coordinates.length;
+		
         for (var i = 0; i < region.coordinates.length; i++) {
             triangleCoords.push({
                 lat: region.coordinates[i].latitude,
                 lng: region.coordinates[i].longtude
             });
-            
+            summx += triangleCoords[i].lat;
+			summy += triangleCoords[i].lng;
         }
 		if(triangleCoords.length <= 0){
 			var mapCenterCoords = vm.map.getCenter();
@@ -45,7 +51,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			var lng = mapCenterCoords.lng();
 			var mapZoom = vm.map.getZoom();
 			var scaling = 5 / mapZoom;
-
+			
 
 			var triangleCoords = [{
 					lat: lat + scaling,
@@ -75,12 +81,15 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			name: region.name
         });
 
+		$scope.currentPolygon = triangle;
+		$scope.name=$scope.currentPolygon.name;
+		$scope.code=$scope.currentPolygon.code;
+		
         triangle.setMap(vm.map);
-		vm.map.setCenter(new google.maps.LatLng(triangleCoords[0].lat, triangleCoords[0].lng));
+		vm.map.setCenter(new google.maps.LatLng(summx/x, summy/y));
+		
         google.maps.event.addListener(triangle, 'click', function (event) {
-            $scope.currentPolygon = triangle;
-			$scope.name=$scope.currentPolygon.name;
-			$scope.code=$scope.currentPolygon.code;
+          
             //$scope.id = $scope.currentPolygon.get("id");
         });
 
@@ -152,9 +161,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			triangle.setMap(vm.map);
 
 			google.maps.event.addListener(triangle, 'click', function (event) {
-				$scope.currentPolygon = triangle;
-				$scope.name=$scope.currentPolygon.name;
-				$scope.code=$scope.currentPolygon.code;
+				
 			});
 
 			//polyList.push(triangle);
