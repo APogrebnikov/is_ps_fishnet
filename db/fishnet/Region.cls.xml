@@ -62,7 +62,7 @@
 	set region = ##class(fishnet.Region).%OpenId(id,,.sc)	
 	quit:$$$ISERR(sc) sc	
 	set proxy = {}	
-	set proxy.id = region.%id
+	set proxy.id = region.%Id()
 	set proxy.name = region.name
 	set proxy.code = region.code	
 	set proxy.coordinates = []	
