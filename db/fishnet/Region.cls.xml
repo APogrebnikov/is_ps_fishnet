@@ -18,11 +18,6 @@
 <Type>%String</Type>
 </Property>
 
-<Property name="resourcies">
-<Type>fishnet.Resource</Type>
-<Collection>list</Collection>
-</Property>
-
 <Method name="GetRegions">
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
@@ -67,7 +62,7 @@
 	set region = ##class(fishnet.Region).%OpenId(id,,.sc)	
 	quit:$$$ISERR(sc) sc	
 	set proxy = {}	
-	set proxy.id = region.id
+	set proxy.id = region.%Id()
 	set proxy.name = region.name
 	set proxy.code = region.code	
 	set proxy.coordinates = []	
@@ -103,24 +98,6 @@
 		s st=st.AsStatus()
 	}
 	quit st
-]]></Implementation>
-</Method>
-
-<Method name="GetResourceForRegion">
-<Implementation><![CDATA[
-	set region = $this	
-	quit:$$$ISERR(sc) sc	
-	set proxy = {}	
-	set proxy.name = region.name
-	set proxy.code = region.code	
-	set proxy.resourcies = []	
-	for i=1:1:region.resourcies.Count(){
-		set res = {}
-		set res.name = region.resourcies.GetAt(i).name
-		set res.code = region.resourcies.GetAt(i).code		
-		do proxy.resourcies.%Push(res)	
-	}	
-	quit proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
