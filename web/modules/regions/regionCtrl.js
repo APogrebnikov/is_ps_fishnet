@@ -7,7 +7,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
     $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWojtxkjHuh44CNE8mw9S-nX3qWeLHGM"
     $scope.id = 0;
     var rid = $routeParams.regionid;
-	alert($routeParams.toSource());
+	//alert($routeParams.toSource());
 	$scope.clearContentsOfMap = function(){
 		for(var i = 0; i < $rootScope.regionPolygon.length; i++){
 			$rootScope.regionPolygon[i].setMap(null);
