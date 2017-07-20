@@ -114,12 +114,12 @@ controllersModule.controller('regionmapController', function ($scope, $routePara
                 function(data){
 						var contentString = '<b>'+$scope.currentPolygon.name+'</b><br>' +
 						'Код: ' + $scope.currentPolygon.code +
-						'<br>' + 'Список ресурсов: ' + '<br>';
+						'<br>' + 'Список ресурсов: ' + '<br><br>';
 						
                         for(var i = 0; i < data.data.children.length; i++){
                             var parsedResource = data.data.children[i];
                             $scope.resourcesInTable.push(parsedResource);
-							contentString += ''+parsedResource.name+'<br><br>';
+							contentString += ''+parsedResource.name+'<br>';
                         }
 						
 						
