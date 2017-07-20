@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 23:19:04">
+<Export generator="Cache" version="25">
 <Class name="fishnet.TotalQuota">
 <Super>%Persistent</Super>
-<TimeChanged>64483,83933.351904</TimeChanged>
 <TimeCreated>64483,42406.92903</TimeCreated>
 
 <Property name="value">
@@ -27,6 +26,27 @@
 <Index name="regionResourceIndex">
 <Properties>regionResource</Properties>
 </Index>
+
+<Method name="SaveTotalQuota">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	try{		
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))  		
+	    // Open object by Id
+	    //set region = ##class(fishnet.Region).%OpenId(data.id,,.st)
+      	// If can't open by Id-create new region
+      	if $$$ISERR(st) set totalq = ##class(fishnet.TotalQuota).%New()
+      	set totalq.value = $ZCONVERT(data.value, "I", "UTF8")
+      	set totalq.startDate = $ZCONVERT(data.startDate, "I", "UTF8")
+      	set totalq.endDate = $ZCONVERT(data.endDate, "I", "UTF8")  
+      	set totalq.regionResource = $ZCONVERT(data.regionResource, "I", "UTF8") 
+		$$$THROWONERROR(st, totalq.%Save())
+	}
+	catch ex{
+		s st=st.AsStatus()
+	}
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>

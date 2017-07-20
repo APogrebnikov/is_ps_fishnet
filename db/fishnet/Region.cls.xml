@@ -135,10 +135,7 @@
 </Method>
 
 <Method name="DeleteRegion">
-<<<<<<< HEAD
 <ClassMethod>1</ClassMethod>
-=======
->>>>>>> parent of ecbb437... fixed DeleteRegion Method->ClassMethod
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[	do ##class(fishnet.Region).%DeleteId(id)

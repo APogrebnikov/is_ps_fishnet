@@ -25,6 +25,10 @@ mainModule.config(function ($routeProvider) {
     controller: 'companyController'
   });
 
+  $routeProvider.when('/tquota/:regionid', {
+    templateUrl: 'modules/totalQuota/totalQuota.html',
+    controller: 'totalQuotaController'
+  });
   $routeProvider.when('/resource', {
     templateUrl: 'modules/resources/resource.html',
     controller: 'resourceController'
