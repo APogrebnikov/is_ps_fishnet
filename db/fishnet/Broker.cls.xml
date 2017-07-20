@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 11:34:58">
+<Export generator="Cache" version="25">
 <Class name="fishnet.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>64484,41666.792508</TimeChanged>
 <TimeCreated>64481,38930.754632</TimeCreated>
 
 <Parameter name="HandleCorsRequest">
@@ -39,7 +38,7 @@
 <!-- ***********Регион-ресурсы**************** -->
 <Route Url="/getresreg/:idRegion" Method="GET" Call="GetAllResForRegion" />
 <Route Url="/setresreg/:idRegion/:idResource" Method="POST" Call="SetResourceForRegion" />
-<Route Url="/delresreg/:idRegion/:idResource" Method="DELETE " Call="DelResource" />
+<Route Url="/delresreg/:idRegion/:idResource" Method="DELETE" Call="DelResource" />
 
 
 
