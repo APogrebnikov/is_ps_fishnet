@@ -6,20 +6,20 @@ controllersModule.controller('totalQuotaController', function ($routeParams, $sc
 		},
 		function (data, status, headers, config) {});
 	$scope.resources = [
-		["resource1", 123, new Date(2011, 1, 11), new Date(2011, 0, 1)],
-		["resource2", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
-		["resource3", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
-		["resource4", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
-		["resource5", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
-		["resource6", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		[0,"resource1", 123, new Date(2011, 1, 11), new Date(2011, 0, 1)],
+		[1,"resource2", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		[2,"resource3", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		[3,"resource4", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		[4,"resource5", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		[5,"resource6", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
 	];
 
 	$scope.hidder = true;
 
 	$scope.save = function(){
-		var arr = [$scope.name,$scope.code,$scope.timeFrom,$scope.timeTo]
+		var arr = [$scope.id,$scope.name,$scope.code,$scope.timeFrom,$scope.timeTo]
 		if ($scope.currentResource){
-			$scope.resources.splice($scope.currentResource.id, 1);
+			$scope.resources.splice($scope.currentResource[0], 1);
 			$scope.resources.push(arr);
 			$scope.resources.sort();
 		}
@@ -33,12 +33,14 @@ controllersModule.controller('totalQuotaController', function ($routeParams, $sc
 	$scope.hide = function (resource) {
 		if (resource) {
 			$scope.currentResource = resource;
-			$scope.name = resource[0];
-			$scope.code = resource[1];
-			$scope.timeFrom = resource[2];
-			$scope.timeTo = resource[3];
+			$scope.id = resource[0];
+			$scope.name = resource[1];
+			$scope.code = resource[2];
+			$scope.timeFrom = resource[3];
+			$scope.timeTo = resource[4];
 		} else {
 			$scope.currentResource = "";
+			$scope.id = $scope.resources.length;
 			$scope.name = "";
 			$scope.code = "";
 			$scope.timeFrom = "";
