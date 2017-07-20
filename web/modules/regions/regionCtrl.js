@@ -33,8 +33,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 				return;
 			}
 		}
-		regionResourceSrvc.saveResource($scope.currentPolygon.id, $scope.currentResource.code)
+		
+		
+		
 		$scope.resourcesInTable.push($scope.currentResource);
+		alert($scope.currentResource.ID);
+		regionResourceSrvc.saveResource($scope.currentPolygon.id, $scope.currentResource.ID)
 	}
 	
 	$scope.removeResource = function(resourceId){
