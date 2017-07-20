@@ -17,6 +17,10 @@ controllersModule.controller('tableController', function ($scope,$location, regi
 	$scope.addRegion = function (){
 		$location.path('/region/').replace()
 	}
+    
+    $scope.openRegionsMap = function (){
+		$location.path('/regionsmap/').replace()
+	}
 	
 	$scope.init = function () {
 		regionSrvc.getAll().then(function (data) {
