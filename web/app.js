@@ -24,7 +24,10 @@ $routeProvider.when('/company/:companyid', {
     controller: 'companyController'
   });
 
-  
+  $routeProvider.when('/tquota', {
+    templateUrl: 'modules/totalQuota/totalQuota.html',
+    controller: 'totalQuotaController'
+  });
   $routeProvider.when('/resource', {
     templateUrl: 'modules/resources/resource.html',
     controller: 'resourceController'
