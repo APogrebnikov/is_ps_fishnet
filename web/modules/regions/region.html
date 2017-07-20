@@ -26,12 +26,13 @@
             <button type="button" class="btn btn-warning" ng-click="createPolygon()" ng-if="regionEdit">Создать</button>
 			
 			<button type="button" class="btn btn-warning" ng-click="showResourceTable()">Ресурсы</button>
-			
+            <br/>
+            <br/>
 			<div class = "resource-details" ng-show="showResources">
 			
 				<select ng-model="currentResource" ng-options="resource.name + ' (' + resource.code + ')' group by resource.name for resource in resources">
 				</select>
-				
+
 				<table class="table table-condensed table-hover">
 					<thead>
 					  <tr>

@@ -28,36 +28,41 @@
 
 <Property name="limits">
 <Type>fishnet.TotalQuota</Type>
+<Cardinality>many</Cardinality>
+<Inverse>regionResource</Inverse>
+<Relationship>1</Relationship>
 </Property>
 
 <Method name="SetResourceForRegion">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>idRes:%String,idReg:%String</FormalSpec>
+<FormalSpec>idReg:%String,idRes:%String</FormalSpec>
 <Implementation><![CDATA[
- set regionRes = ##class(fishnet.RegionResource).%New()
- set regionRes.region = ##class(fishnet.Region).%OpenId(idReg) 
- set regionRes.resource = ##class(fishnet.Resource).%OpenId(idRes)  
- q regionRes.%Save()
+	set regionRes = ##class(fishnet.RegionResource).%New()
+	set regionRes.region = ##class(fishnet.Region).%OpenId(idReg)
+	set regionRes.resource = ##class(fishnet.Resource).%OpenId(idRes)	 
+	q regionRes.%Save()
 ]]></Implementation>
 </Method>
 
-<Method name="GetAllResOneRegion">
+<Method name="GetAllResForReg">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>regId:%String</FormalSpec>
+<FormalSpec>idReg:%String</FormalSpec>
 <Implementation><![CDATA[
-	set st = $$$OK
 	
-	set sql = "SELECT region->ID, region->code, region->name, resource->code, resource->name "_
-				"FROM fishnet.RegionResource "_
-				"WHERE region.ID = "_regId_""
-			
-				
+	set sql = "SELECT region->code, region->name, resource->code, resource->name "_
+		"FROM fishnet.RegionResource "_
+		"WHERE region->ID ="_idReg_""
 	q ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,sql)
 ]]></Implementation>
 </Method>
 
-<Method name="DelRegionResource">
-<Implementation><![CDATA[	q ..%Delete()
+<Method name="DelResource">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>idReg:%String,idRes:%String</FormalSpec>
+<Implementation><![CDATA[
+	 &sql(DELETE 
+	 FROM fishnet.RegionResource 
+	 WHERE region->ID=:idReg AND resource->ID=:idRes)
 ]]></Implementation>
 </Method>
 
