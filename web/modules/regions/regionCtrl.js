@@ -72,6 +72,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		var x = region.coordinates.length;
 		var y = region.coordinates.length;
 		
+		
+		
         for (var i = 0; i < region.coordinates.length; i++) {
             triangleCoords.push({
                 lat: region.coordinates[i].latitude,
@@ -140,8 +142,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		
 		regionResourceSrvc.getAll($scope.currentPolygon.id).then(
 					function(data){
+						
+						
 							for(var i = 0; i < data.data.children.length; i++){
+								
 								var parsedResource = JSON.parse(data.data.children[i]);
+								
 								$resourcesInTable.push(parsedResource);
 							}
 					},
