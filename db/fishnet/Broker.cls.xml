@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 14:10:13">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 14:32:42">
 <Class name="fishnet.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>64484,50946.054704</TimeChanged>
+<TimeChanged>64484,52329.236654</TimeChanged>
 <TimeCreated>64481,38930.754632</TimeCreated>
 
 <Parameter name="HandleCorsRequest">
@@ -44,6 +44,8 @@
 
 <!-- **********TotalQuota**********************-->
 <Route Url="/savetotalq" Method="POST" Call="SaveTotalQuota" />
+<Route Url="/getalltotalqreg" Method="GET" Call="GetAllTotalQuotaForReg" />
+
 
 </Routes>
 ]]></Data>
@@ -242,8 +244,19 @@
 
 <Method name="SaveTotalQuota">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.TotalQuota).SaveTotalQuota()
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetAllTotalQuotaForReg">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>idReg:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  d ##class(fishnet.TotalQuota).GetAllTotalQuotaForReg(idReg)
   q $$$OK
 ]]></Implementation>
 </Method>
