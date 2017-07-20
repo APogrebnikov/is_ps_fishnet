@@ -54,7 +54,7 @@
 <Implementation><![CDATA[
 	set sql = "SELECT regionResource->region->ID, value, startDate, endDate, regionResource->resource->code, regionResource->resource->name "_
 		"FROM fishnet.TotalQuota "_
-		"WHERE regionResource->region->ID="_idReg_""
+		"WHERE regionResource->region->ID="_idReg_" "
 	q ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,sql)
 ]]></Implementation>
 </Method>
