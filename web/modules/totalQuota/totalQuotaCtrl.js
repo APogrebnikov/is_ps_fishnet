@@ -2,6 +2,24 @@ controllersModule.controller('totalQuotaController', function ($scope,$location,
 
 	$scope.regions = []; //= [1,2,3];
 
+	$scope.hidder = true;
+	$scope.hide = function(){
+		$scope.hidder = !$scope.hidder;
+	}
+	
+
+	$(document).ready(function () {
+    $('#yellow-trigger').click(function () {
+        $('#red-box').hide();
+        $('#yellow-box').fadeIn('slow');
+    });
+
+    $('#red-trigger').click(function () {
+        $('#yellow-box').hide();
+        $('#red-box').fadeIn('slow');     
+    });
+});
+
 	$scope.editRegion = function (id) {
 		$location.path('/region/'+id).replace();
 	}
