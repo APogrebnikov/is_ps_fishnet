@@ -42,8 +42,8 @@
           <td class="col-xs-1">{{ $index + 1 }}</td>
           <td class="col-xs-2">{{ x[0] }}</td>
           <td class="col-xs-2">{{ x[1] }}</td>
-          <td class="col-xs-2">{{ x[2].format("dd/mm/yyyy") }}</td>
-          <td class="col-xs-3">{{ x[3] }}</td>
+          <td class="col-xs-2" >{{ x[2].getDate() }}/{{ x[2].getMonth() }}/{{ x[2].getFullYear() }}</td>
+          <td class="col-xs-3" >{{ x[3].getDate() }}/{{ x[3].getMonth() }}/{{ x[3].getFullYear() }}</td>
           <td class="col-xs-2">
             <button type="button" class="btn btn-xs btn-primary" ng-click="hide(x)" title="Редактировать">Редактировать</button>
           </td>
@@ -65,7 +65,7 @@
       <input type="date" ng-model="timeTo" class="form-control" id="usr"></input>
       
     </div>
-    <button type="button" class="btn btn-lg btn-primary" ng-click="hide()" title="Редактировать">Пок</button>
+    <button type="button" class="btn btn-lg btn-primary" ng-click="save()" title="Редактировать">Пок</button>
   </div>
 
 </div>
