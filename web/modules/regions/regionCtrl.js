@@ -33,7 +33,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 				return;
 			}
 		}
-		regionResourceSrvc.addResource($scope.currentPolygon.id, $scope.currentResource.code)
+		regionResourceSrvc.saveResource($scope.currentPolygon.id, $scope.currentResource.code)
 		$scope.resourcesInTable.push($scope.currentResource);
 	}
 	
@@ -44,6 +44,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 	
 	$scope.showResourceTable = function(){
 		$scope.showResources = !$scope.showResources;
+		
 	}
 	
 	
@@ -120,10 +121,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			code: region.code,
 			name: region.name
         });
-
-		$scope.currentPolygon = triangle;
-		$scope.name=$scope.currentPolygon.name;
-		$scope.code=$scope.currentPolygon.code;
+		
+		
         //triangle.setMap(vm.map);
 		
 		/*
@@ -134,7 +133,23 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		*/
         //polyList.push(triangle);
         triangle.setMap(vm.map);
+		$scope.currentPolygon = triangle;
+		$scope.name=$scope.currentPolygon.name;
+		$scope.code=$scope.currentPolygon.code;
         $rootScope.regionPolygon.push(triangle);
+		
+		regionResourceSrvc.getAll($scope.currentPolygon.id).then(
+					function(data){
+							for(var i = 0; i < data.data.children.length; i++){
+								var parsedResource = JSON.parse(data.data.children[i]);
+								$resourcesInTable.push(parsedResource);
+							}
+					},
+					function(data, status, headers, config){
+						
+					}
+		);
+		
 		vm.map.setCenter(new google.maps.LatLng(summx/x, summy/y));
     }
 
@@ -158,6 +173,12 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			
 			
         }
+		
+		else if($location.path() == '/region/'){
+			$scope.regionEdit = true;
+
+		}
+		
 		else{
 			$scope.regionEdit = true;
 			
@@ -182,18 +203,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 					
 			}
 		);
-			
-		regionResourceSrvc.getAll($scope.currentPolygon.id).then(
-			function(data){
-					for(var i = 0; i < data.data.children.length; i++){
-						var parsedResource = JSON.parse(data.data.children[i]);
-						$resourcesInTable.push(parsedResource);
-					}
-			},
-			function(data, status, headers, config){
-				
-			}
-		);
+		
     }
 	
 	$scope.openAllRegions = function(regions){
@@ -341,8 +351,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 
         //polyList.push(triangle);
 		$scope.currentPolygon = triangle;
-		$scope.name=$scope.currentPolygon.name;
-		$scope.code=$scope.currentPolygon.code;
+		$rootScope.regionPolygon.push(triangle);
 		$scope.currentPolygon.setOptions({editable:true, draggable:true});
 		
         google.maps.event.addListener(triangle, 'click', function (event) {
