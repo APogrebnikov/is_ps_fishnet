@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 11:13:47">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 11:34:58">
 <Class name="fishnet.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>64484,40330.0817</TimeChanged>
+<TimeChanged>64484,41666.792508</TimeChanged>
 <TimeCreated>64481,38930.754632</TimeCreated>
 
 <Parameter name="HandleCorsRequest">
@@ -39,6 +39,8 @@
 <!-- ***********Регион-ресурсы**************** -->
 <Route Url="/getresreg/:idRegion" Method="GET" Call="GetAllResForRegion" />
 <Route Url="/setresreg/:idRegion/:idResource" Method="POST" Call="SetResourceForRegion" />
+<Route Url="/delresreg/:idRegion/:idResource" Method="DELETE " Call="DelResource" />
+
 
 
 </Routes>
@@ -76,7 +78,7 @@
 
 <Method name="SaveRegion">
 <ClassMethod>1</ClassMethod>
-<ReturnType>%String</ReturnType>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.Region).SaveRegion()
   q $$$OK
@@ -119,6 +121,7 @@
 
 <Method name="GetCompanies">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
    w ##class(fishnet.Company).GetCompanies()
    q $$$OK
@@ -127,6 +130,7 @@
 
 <Method name="SaveRequisetesCompany">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.Company).SaveRequisetesCompany()
   q $$$OK
@@ -135,6 +139,7 @@
 
 <Method name="SaveRegionOfCompany">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.Company).SaveRegionOfCompany()
   q $$$OK
@@ -148,6 +153,7 @@
 
 <Method name="GetResourcies">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   w ##class(fishnet.Resource).GetResourcies()
   q $$$OK
@@ -156,6 +162,7 @@
 
 <Method name="SaveResource">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.Resource).SaveResource()
   q $$$OK
@@ -169,6 +176,7 @@
 
 <Method name="SaveQuota">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.Quota).SaveQuotas()
   q $$$OK
@@ -178,6 +186,7 @@
 <Method name="GetQuotasByCompanyId">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>companyId:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   w ##class(fishnet.Quota).GetQuotasByCompanyId(companyId)
   q $$$OK
@@ -192,6 +201,7 @@
 <Method name="GetAllResForRegion">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>idReg:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   w ##class(fishnet.RegionResource).GetAllResForReg(idReg)
   q $$$OK
@@ -201,8 +211,19 @@
 <Method name="SetResourceForRegion">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>idReg:%String,idRes:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.RegionResource).SetResourceForRegion(idReg, idRes)
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="DelResource">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>idReg:%String,idRes:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  d ##class(fishnet.RegionResource).DelResource(idReg,idRes)
   q $$$OK
 ]]></Implementation>
 </Method>
