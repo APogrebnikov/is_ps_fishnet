@@ -1,22 +1,50 @@
-controllersModule.controller('totalQuotaController', function ($routeParams, $scope, $location, totalQuotaSrvc,regionSrvc) {
+controllersModule.controller('totalQuotaController', function ($routeParams, $scope, $location, totalQuotaSrvc, regionSrvc) {
 	var rid = $routeParams.regionid
 	regionSrvc.get(rid).then(
-                function (data) {
-                    $scope.currentRegion = data.data;
-                },
-                function (data, status, headers, config) {
-			});
+		function (data) {
+			$scope.currentRegion = data.data;
+		},
+		function (data, status, headers, config) {});
 	$scope.resources = [
-		["resource1", 123, new Date(2011, 0, 1, 2, 3, 4, 567),new  Date(2011, 0, 1, 2, 3, 4, 567)],
-		["resource2", 123, new Date(2011, 0, 1, 2, 3, 4, 567), new Date(2011, 0, 1, 2, 3, 4, 567)],
-		["resource3", 123, new Date(2011, 0, 1, 2, 3, 4, 567), new Date(2011, 0, 1, 2, 3, 4, 567)],
-		["resource4", 123, new Date(2011, 0, 1, 2, 3, 4, 567), new Date(2011, 0, 1, 2, 3, 4, 567)],
-		["resource5", 123, new Date(2011, 0, 1, 2, 3, 4, 567), new Date(2011, 0, 1, 2, 3, 4, 567)],
-		["resource6", 123, new Date(2011, 0, 1, 2, 3, 4, 567), new Date(2011, 0, 1, 2, 3, 4, 567)],
+		["resource1", 123, new Date(2011, 1, 11), new Date(2011, 0, 1)],
+		["resource2", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		["resource3", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		["resource4", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		["resource5", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
+		["resource6", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
 	];
 
 	$scope.hidder = true;
-	$scope.hide = function () {
+
+	$scope.save = function(){
+		var arr = [$scope.name,$scope.code,$scope.timeFrom,$scope.timeTo]
+		if ($scope.currentResource){
+			$scope.resources.splice($scope.currentResource.id, 1);
+			$scope.resources.push(arr);
+			$scope.resources.sort();
+		}
+		else{
+			$scope.resources.push(arr);
+			$scope.resources.sort();
+		}
+		$scope.hide();
+	};
+
+	$scope.hide = function (resource) {
+		if (resource) {
+			$scope.currentResource = resource;
+			$scope.name = resource[0];
+			$scope.code = resource[1];
+			$scope.timeFrom = resource[2];
+			$scope.timeTo = resource[3];
+		} else {
+			$scope.currentResource = "";
+			$scope.name = "";
+			$scope.code = "";
+			$scope.timeFrom = "";
+			$scope.timeTo = "";
+		}
+
 		$scope.hidder = !$scope.hidder;
 	}
 
