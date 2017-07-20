@@ -9,10 +9,14 @@
 
 
         <div class="col-sm-6">
+            <br/>
+			<p align="right">
+                <button type="button" class="btn btn-primary" ng-click="backToRegionList()">Назад</button>
+            </p>
             <div class="form-group">
-                <label for="usr">Name:</label>
+                <label for="usr">Название:</label>
                 <input type="text" ng-model="name" class="form-control" id="usr"></input>
-				<label for="usr">Code:</label>
+				<label for="usr">Код:</label>
 				<input type="text" ng-model="code" class="form-control" id="usr"></input>
             </div>
             <button type="button" class="btn btn-default" ng-click="openPolygon()" ng-if="regionEdit">Открыть</button>
@@ -20,7 +24,6 @@
             <button type="button" class="btn btn-success" ng-click="deletePolygon()" ng-if="regionEdit">Удалить</button>
             <button type="button" class="btn btn-info" ng-click="editPolygon()">Редактировать</button>
             <button type="button" class="btn btn-warning" ng-click="createPolygon()" ng-if="regionEdit">Создать</button>
-			<button type="button" class="btn btn-warning" ng-click="backToRegionList()">Список регионов</button>
 			
 			<button type="button" class="btn btn-warning" ng-click="showResourceTable()">Ресурсы</button>
 			

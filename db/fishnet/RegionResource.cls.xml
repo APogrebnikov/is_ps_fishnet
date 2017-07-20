@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 23:23:55">
+<Export generator="Cache" version="25">
 <Class name="fishnet.RegionResource">
 <Super>%Persistent</Super>
-<TimeChanged>64483,84220.297072</TimeChanged>
 <TimeCreated>64482,57980.141608</TimeCreated>
 
 <Property name="region">
@@ -29,26 +28,37 @@
 
 <Property name="limits">
 <Type>fishnet.TotalQuota</Type>
-<Cardinality>many</Cardinality>
-<Inverse>regionResource</Inverse>
-<Relationship>1</Relationship>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-/*
-Method SetResourceForRegion(idRes As %String, limitId As %String)
-{
-	set regionRes = ##class(fishnet.RegionResource).%New()
-	set regionRes.region = ..region
-	//set regionRes.limits = ##class(fishnet.TotalQuota).%OpenId(limitId)
-	set regionRes.resource = ##class(fishnet.Resource).%OpenId(idRes)	 
-	q regionRes.%Save()
-}*/
-]]></Content>
-</UDLText>
+<Method name="SetResourceForRegion">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>idRes:%String,idReg:%String</FormalSpec>
+<Implementation><![CDATA[
+ set regionRes = ##class(fishnet.RegionResource).%New()
+ set regionRes.region = ##class(fishnet.Region).%OpenId(idReg) 
+ set regionRes.resource = ##class(fishnet.Resource).%OpenId(idRes)  
+ q regionRes.%Save()
+]]></Implementation>
+</Method>
 
-<Method name="DelResource">
+<Method name="GetAllResOneRegion">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>regId:%String</FormalSpec>
+<Implementation><![CDATA[
+	set st = $$$OK
+	
+	set sql = "SELECT region->ID, region->code, region->name, resource->code, resource->name "_
+				"FROM fishnet.RegionResource "_
+				"WHERE region.ID = "_regId_""
+			
+				
+	q ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,sql)
+]]></Implementation>
+</Method>
+
+<Method name="DelRegionResource">
+<Implementation><![CDATA[	q ..%Delete()
+]]></Implementation>
 </Method>
 
 <Method name="GetProxy">

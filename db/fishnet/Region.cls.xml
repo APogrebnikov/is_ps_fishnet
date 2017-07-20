@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-19 18:07:40">
+<Export generator="Cache" version="25">
 <Class name="fishnet.Region">
 <StorageStrategy/>
 <Super>%Persistent</Super>
-<TimeChanged>64483,65198.322619</TimeChanged>
 <TimeCreated>64479,59414.858678</TimeCreated>
 
 <Property name="name">
@@ -135,7 +134,11 @@
 ]]></Implementation>
 </Method>
 
-<ClassMethod name="DeleteRegion">
+<Method name="DeleteRegion">
+<<<<<<< HEAD
+<ClassMethod>1</ClassMethod>
+=======
+>>>>>>> parent of ecbb437... fixed DeleteRegion Method->ClassMethod
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[	do ##class(fishnet.Region).%DeleteId(id)
