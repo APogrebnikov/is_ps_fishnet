@@ -54,21 +54,6 @@
 ]]></Implementation>
 </Method>
 
-<Method name="GetAllResOneRegion">
-<ClassMethod>1</ClassMethod>
-<FormalSpec>regId:%String</FormalSpec>
-<Implementation><![CDATA[
-	set st = $$$OK
-	
-	set sql = "SELECT regionResource->region->%ID as ID, regionResource->region->code as RegCode,regionResource->region->name as RegName, regionResource->resource->code as ResCode, regionResource->resource->name as ResName "_
-				"FROM fishnet.Quota "_
-				"WHERE ID = "_regId_""
-			
-				
-	q ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,sql)
-]]></Implementation>
-</Method>
-
 <Method name="GetQuotasByCompanyId">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>companyId:%String</FormalSpec>
@@ -98,12 +83,12 @@
 			 set proxyQ.endDate = quota.endDate
 			 if (quota.regionResource'="")
 			  {	
+			  	set ^test = quota.regionResource
 				  set proxyQ.regionResource = quota.regionResource.GetProxy()
 				  }
 			 if (quota.company'="")
-			  {
-				  set proxyQ.company = quota.company.GetProxy()
-				  }
+			  {	set ^testTwo = 222
+				  set proxyQ.company = quota.company.GetProxy()}
 			do proxy.%Push(proxyQ)
 		}		
 		&sql(CLOSE QoCur)		
@@ -171,15 +156,5 @@
 </Value>
 </Data>
 </Storage>
-
-<Query name="NewQuery1">
-<Type>%SQLQuery</Type>
-<SqlQuery><![CDATA[SELECT regionResource->region->code,regionResource->region->name,regionResource->resource->code,regionResource->resource->name FROM Quota]]></SqlQuery>
-</Query>
-
-<Query name="NewQuery2">
-<Type>%SQLQuery</Type>
-<SqlQuery><![CDATA[SELECT regionResource->region->%ID FROM Quota]]></SqlQuery>
-</Query>
 </Class>
 </Export>
