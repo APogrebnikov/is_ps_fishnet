@@ -49,7 +49,7 @@
 <FormalSpec>idReg:%String</FormalSpec>
 <Implementation><![CDATA[
 	
-	set sql = "SELECT resource->code, resource->name "_
+	set sql = "SELECT resource->ID, resource->code, resource->name "_
 		"FROM fishnet.RegionResource "_
 		"WHERE region->ID ="_idReg_""
 	q ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,sql)
