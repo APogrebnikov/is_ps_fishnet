@@ -119,7 +119,7 @@ controllersModule.controller('regionmapController', function ($scope, $routePara
                         for(var i = 0; i < data.data.children.length; i++){
                             var parsedResource = data.data.children[i];
                             $scope.resourcesInTable.push(parsedResource);
-							contentString += '<b>'+parsedResource.name+'</b><br>';
+							contentString += ''+parsedResource.name+'<br><br>';
                         }
 						
 						
