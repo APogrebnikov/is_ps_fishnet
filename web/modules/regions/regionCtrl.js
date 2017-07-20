@@ -5,6 +5,8 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 	$scope.name;
 	$scope.code;
 	
+	$scope.regionId;
+	
 	$scope.showResources = false;
 	$scope.currentResource;
 	$scope.resources = [];
@@ -303,7 +305,15 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 			$scope.currentPolygon.code = $scope.code;
 			
             var editRegion = JSON.stringify({id: $scope.currentPolygon.id, name: $scope.currentPolygon.name, code: $scope.currentPolygon.code, coordinates: polygonPoints});
-			regionSrvc.save(editRegion);
+			regionSrvc.save(editRegion).then(
+				function (data) {
+					
+					$scope.regionId = parseInt(data.data.id);
+
+				},
+				function (data, status, headers, config) {
+					
+				});
 			
         } else {
             alert("No polygons chosen");
@@ -320,7 +330,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 				});
 			$scope.name = $scope.currentPolygon.name;
 			$scope.code = $scope.currentPolygon.code;
-			alert($scope.currentPolygon.id + " " + $scope.currentPolygon.name + " " + $scope.currentPolygon.code);
+			
 		}
         else alert("No polygons chosen");
     }
