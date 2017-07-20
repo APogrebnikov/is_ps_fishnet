@@ -42,7 +42,7 @@
           <td class="col-xs-1">{{ $index + 1 }}</td>
           <td class="col-xs-2">{{ x[0] }}</td>
           <td class="col-xs-2">{{ x[1] }}</td>
-          <td class="col-xs-2">{{ x[2] }}</td>
+          <td class="col-xs-2">{{ x[2].format("dd/mm/yyyy") }}</td>
           <td class="col-xs-3">{{ x[3] }}</td>
           <td class="col-xs-2">
             <button type="button" class="btn btn-xs btn-primary" ng-click="hide(x)" title="Редактировать">Редактировать</button>

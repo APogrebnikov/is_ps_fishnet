@@ -6,7 +6,7 @@ controllersModule.controller('totalQuotaController', function ($routeParams, $sc
 		},
 		function (data, status, headers, config) {});
 	$scope.resources = [
-		["resource1", 123, new Date("2011/01/11"), new Date(2011, 0, 1)],
+		["resource1", 123, new Date(2011, 1, 11).format("yyyy-mm-dd"), new Date(2011, 0, 1)],
 		["resource2", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
 		["resource3", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
 		["resource4", 123, new Date(2011, 0, 1), new Date(2011, 0, 1)],
