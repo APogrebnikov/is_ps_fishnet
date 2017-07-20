@@ -17,7 +17,7 @@ servicesModule.factory('regionResourceSrvc', function(RESTSrvc,settings) {
 		},
 		/* Удалить регион по ИД */
 		removeResource: function(idReg, idRes){
-			return RESTSrvc.getPromise({method: 'DELETE', url: settings.server + 'regionresource/' + idReg + '/' + idRes});
+			return RESTSrvc.getPromise({method: 'DELETE', url: settings.server + 'delresreg/' + idReg + '/' + idRes});
 		},
     }
 });

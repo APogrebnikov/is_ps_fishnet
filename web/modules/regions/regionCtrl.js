@@ -37,13 +37,13 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		
 		
 		$scope.resourcesInTable.push($scope.currentResource);
-		alert($scope.currentResource.ID);
-		regionResourceSrvc.saveResource($scope.currentPolygon.id, $scope.currentResource.ID)
+		regionResourceSrvc.saveResource($scope.currentPolygon.id, $scope.currentResource.id)
 	}
 	
 	$scope.removeResource = function(resourceId){
-		$scope.resourcesInTable.splice(resourceId, 1);
-		regionResourceSrvc.removeResource($scope.currentPolygon.id, resourceId);
+		var deleted = $scope.resourcesInTable.splice(resourceId, 1);
+		alert(deleted.toSource())
+		regionResourceSrvc.removeResource($scope.currentPolygon.id, deleted[0].ID);
 	}
 	
 	$scope.showResourceTable = function(){
@@ -150,6 +150,7 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 							for(var i = 0; i < data.data.children.length; i++){
 								var parsedResource = data.data.children[i];
 								$scope.resourcesInTable.push(parsedResource);
+
 							}
 					},
 					function(data, status, headers, config){
