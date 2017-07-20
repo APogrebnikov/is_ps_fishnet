@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 10:59:51">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 11:13:47">
 <Class name="fishnet.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>64484,39493.235076</TimeChanged>
+<TimeChanged>64484,40330.0817</TimeChanged>
 <TimeCreated>64481,38930.754632</TimeCreated>
 
 <Parameter name="HandleCorsRequest">
@@ -38,7 +38,7 @@
 
 <!-- ***********Регион-ресурсы**************** -->
 <Route Url="/getresreg/:idRegion" Method="GET" Call="GetAllResForRegion" />
-<!-- <Route Url="/setregres/:idRegion&" Method="POST" Call="SetResourceForRegion" /> -->
+<Route Url="/setresreg/:idRegion/:idResource" Method="POST" Call="SetResourceForRegion" />
 
 
 </Routes>
@@ -194,6 +194,15 @@
 <FormalSpec>idReg:%String</FormalSpec>
 <Implementation><![CDATA[
   w ##class(fishnet.RegionResource).GetAllResForReg(idReg)
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="SetResourceForRegion">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>idReg:%String,idRes:%String</FormalSpec>
+<Implementation><![CDATA[
+  d ##class(fishnet.RegionResource).SetResourceForRegion(idReg, idRes)
   q $$$OK
 ]]></Implementation>
 </Method>

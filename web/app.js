@@ -6,8 +6,8 @@ var mainModule = angular.module('mainModule', ['servicesModule', 'controllersMod
 mainModule.config(function ($routeProvider) {
 
 	$routeProvider.when('/regionsmap/', {
-		templateUrl: 'modules/regions/region.html',
-		controller: 'regionController'
+		templateUrl: 'modules/regions/regionmap.html',
+		controller: 'regionmapController'
 	});
 	
 	$routeProvider.when('/region/', {
@@ -19,12 +19,16 @@ mainModule.config(function ($routeProvider) {
     templateUrl: 'modules/regions/region.html',
     controller: 'regionController'
   });
-$routeProvider.when('/company/:companyid', {
+    
+  $routeProvider.when('/company/:companyid', {
     templateUrl: 'modules/company/company.html',
     controller: 'companyController'
   });
 
-  
+  $routeProvider.when('/tquota/:regionid', {
+    templateUrl: 'modules/totalQuota/totalQuota.html',
+    controller: 'totalQuotaController'
+  });
   $routeProvider.when('/resource', {
     templateUrl: 'modules/resources/resource.html',
     controller: 'resourceController'
