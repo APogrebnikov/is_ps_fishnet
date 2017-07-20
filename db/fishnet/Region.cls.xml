@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 11:22:03">
 <Class name="fishnet.Region">
 <StorageStrategy/>
 <Super>%Persistent</Super>
+<TimeChanged>64484,40908.90541</TimeChanged>
 <TimeCreated>64479,59414.858678</TimeCreated>
 
 <Property name="name">
@@ -111,6 +112,7 @@
  set proxy = {}
  set proxy.id = region.%Id()
  set proxy.name = region.name
+ set proxy.code = region.code
  set proxy.coordinates = []
  for i=1:1:region.coordinates.Count(){
  	set point = {}
