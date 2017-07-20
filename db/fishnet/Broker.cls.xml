@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2017-07-20 14:10:13">
 <Class name="fishnet.Broker">
 <Super>%CSP.REST</Super>
+<TimeChanged>64484,50946.054704</TimeChanged>
 <TimeCreated>64481,38930.754632</TimeCreated>
 
 <Parameter name="HandleCorsRequest">
@@ -30,6 +31,7 @@
 <!--*************Ресурсы****************** -->
 <Route Url="/resourcies" Method="GET" Call="GetResourcies"/>
 <Route Url="/saveres" Method="POST" Call="SaveResource"/>
+<Route Url="/delresource" Method="DELETE" Call="DeleteResource" />
 
 <!-- ***************Квоты******************-->
 <Route Url="/quota/save" Method="POST" Call="SaveQuota"/>
@@ -40,7 +42,8 @@
 <Route Url="/setresreg/:idRegion/:idResource" Method="POST" Call="SetResourceForRegion" />
 <Route Url="/delresreg/:idRegion/:idResource" Method="DELETE" Call="DelResource" />
 
-
+<!-- **********TotalQuota**********************-->
+<Route Url="/savetotalq" Method="POST" Call="SaveTotalQuota" />
 
 </Routes>
 ]]></Data>
@@ -168,6 +171,16 @@
 ]]></Implementation>
 </Method>
 
+<Method name="DeleteResource">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   do ##class(fishnet.Resource).DeleteResource(id)
+   q $$$OK
+]]></Implementation>
+</Method>
+
 <UDLText name="T">
 <Content><![CDATA[/*----------------------------Квоты-------------------------------*/
 ]]></Content>
@@ -223,6 +236,14 @@
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
   d ##class(fishnet.RegionResource).DelResource(idReg,idRes)
+  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="SaveTotalQuota">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+  d ##class(fishnet.TotalQuota).SaveTotalQuota()
   q $$$OK
 ]]></Implementation>
 </Method>
