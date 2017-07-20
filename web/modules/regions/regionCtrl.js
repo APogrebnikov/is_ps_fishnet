@@ -143,12 +143,9 @@ controllersModule.controller('regionController', function ($scope, $routeParams,
 		regionResourceSrvc.getAll($scope.currentPolygon.id).then(
 					function(data){
 						
-						
 							for(var i = 0; i < data.data.children.length; i++){
-								
-								var parsedResource = JSON.parse(data.data.children[i]);
-								
-								$resourcesInTable.push(parsedResource);
+								var parsedResource = data.data.children[i];
+								$scope.resourcesInTable.push(parsedResource);
 							}
 					},
 					function(data, status, headers, config){
